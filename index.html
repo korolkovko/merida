@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merida Concepts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .card p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Merida Concepts</h1>
+        <div class="cards">
+            <a href="merida-automatik-concept.html" class="card">
+                <h2>Automatik</h2>
+                <p>Концепция автоматических систем</p>
+            </a>
+            <a href="merida-click-concept.html" class="card">
+                <h2>Click</h2>
+                <p>Концепция Click систем</p>
+            </a>
+            <a href="merida-aroma-concept.html" class="card">
+                <h2>Aroma</h2>
+                <p>Концепция ароматизации</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

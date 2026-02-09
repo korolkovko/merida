@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERIDA КЛИК</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #FAFAF8;
+    --paper: #F2F1ED;
+    --smoke: #E6E5E0;
+    --silver: #C4C3BC;
+    --stone: #8A8983;
+    --graphite: #5A5954;
+    --coal: #2C2B28;
+    --black: #141413;
+    --blue: #0052CC;
+    --blue-pale: #E8F0FC;
+    --amber: #E8A817;
+    --page-w: 210mm;
+    --page-h: 297mm;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #D5D3CD;
+    font-family: 'Instrument Sans', -apple-system, sans-serif;
+    color: var(--black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+    padding: 56px 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--stone);
+    padding: 40px 0 0;
+    border-top: 2px solid var(--silver);
+    width: var(--page-w);
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .page-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: -40px;
+    font-weight: 500;
+  }
+
+  .page {
+    width: var(--page-w);
+    height: var(--page-h);
+    background: var(--white);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06), 0 24px 60px rgba(0,0,0,0.04);
+  }
+
+  /* ══ COMMON COMPONENTS ══ */
+
+  .top-bar { display: flex; justify-content: space-between; align-items: flex-start; padding: 32px 40px 0; }
+  .brand { display: flex; flex-direction: column; gap: 1px; }
+  .brand-name { font-size: 15px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--black); }
+  .brand-sub { font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); font-weight: 400; }
+  .top-category { text-align: right; }
+  .top-category-line { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone); line-height: 1.8; }
+
+  /* Hero */
+  .front { display: grid; grid-template-rows: auto 1fr auto; height: 100%; }
+  .hero { padding: 0 40px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+  .hero-rule { width: 100%; height: 1px; background: var(--smoke); }
+  .hero-content { padding: 36px 0; }
+  .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); font-weight: 500; margin-bottom: 12px; }
+  .hero-title { font-size: 88px; font-weight: 700; letter-spacing: -0.035em; line-height: 0.88; color: var(--black); }
+  .hero-title .dot { color: var(--blue); }
+  .hero-desc { margin-top: 20px; font-size: 14px; font-weight: 400; color: var(--graphite); line-height: 1.65; max-width: 340px; letter-spacing: 0.005em; }
+
+  /* Product cards */
+  .products { display: grid; grid-template-columns: 1fr 1fr; height: 310px; }
+  .prod-card { position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px 36px; overflow: hidden; }
+  .prod-card--light { background: var(--paper); }
+  .prod-card--dark { background: var(--coal); color: var(--white); }
+  .prod-visual { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 120px; height: 170px; display: flex; align-items: center; justify-content: center; }
+  .prod-name { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  .prod-meta { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.45; margin-top: 5px; font-weight: 400; }
+  .prod-tag { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; padding: 5px 10px; border: 1px solid var(--blue); color: var(--blue); }
+  .prod-card--dark .prod-tag { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); }
+  .prod-tag::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); }
+  .prod-card--dark .prod-tag::before { background: var(--amber); }
+
+  /* Features strip */
+  .features { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--smoke); }
+  .feat { padding: 20px 22px; border-right: 1px solid var(--smoke); }
+  .feat:last-child { border-right: none; }
+  .feat-num { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+  .feat-title { font-size: 10.5px; font-weight: 600; color: var(--black); line-height: 1.3; margin-bottom: 3px; }
+  .feat-text { font-size: 8.5px; color: var(--stone); line-height: 1.5; font-weight: 400; }
+
+  /* ══ DETAIL PAGE ══ */
+  .detail { display: grid; grid-template-rows: auto 1fr auto; height: 100%; }
+  .detail-body { padding: 0 40px; display: flex; flex-direction: column; }
+
+  .system-block { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .system-text { padding-right: 28px; }
+  .system-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); font-weight: 500; margin-bottom: 10px; }
+  .system-title { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; color: var(--black); margin-bottom: 14px; }
+  .system-desc { font-size: 10.5px; color: var(--graphite); line-height: 1.7; font-weight: 400; }
+  .system-visual { display: flex; align-items: center; justify-content: center; background: var(--paper); padding: 20px; }
+
+  .benefits { margin-top: 24px; }
+  .benefits-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--coal); margin-bottom: 0; }
+  .benefits-h { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--black); }
+  .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .benefit { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--smoke); position: relative; }
+  .benefit:nth-child(3n+2), .benefit:nth-child(3n+3) { padding-left: 16px; }
+  .benefit:nth-child(3n+2)::before, .benefit:nth-child(3n+3)::before { content: ''; position: absolute; left: 0; top: 12px; bottom: 12px; width: 1px; background: var(--smoke); }
+  .benefit-num { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+  .benefit-title { font-size: 10.5px; font-weight: 600; color: var(--black); line-height: 1.3; margin-bottom: 4px; }
+  .benefit-text { font-size: 8.5px; color: var(--stone); line-height: 1.55; font-weight: 400; }
+
+  .compare { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .compare-card { padding: 20px 24px; position: relative; }
+  .compare-card:first-child { padding-right: 24px; border-right: 1px solid var(--smoke); }
+  .compare-card:last-child { padding-left: 24px; }
+  .compare-line { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 6px; }
+  .compare-name { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; color: var(--black); margin-bottom: 10px; }
+  .compare-desc { font-size: 9px; color: var(--graphite); line-height: 1.65; font-weight: 400; margin-bottom: 12px; }
+  .compare-specs { display: flex; flex-direction: column; gap: 6px; }
+  .compare-spec { display: flex; justify-content: space-between; align-items: baseline; font-size: 8px; padding-bottom: 5px; border-bottom: 1px solid var(--smoke); }
+  .compare-spec:last-child { border-bottom: none; }
+  .compare-spec-label { font-family: 'JetBrains Mono', monospace; font-size: 6.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); font-weight: 500; }
+  .compare-spec-val { font-size: 8.5px; font-weight: 600; color: var(--black); }
+  .compare-tag { display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; padding: 4px 8px; background: var(--coal); color: var(--white); }
+  .compare-tag--blue { background: var(--blue); }
+
+  .policy { margin-top: 18px; padding: 16px 20px; background: var(--paper); display: flex; gap: 20px; align-items: flex-start; }
+  .policy-icon { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; }
+  .policy-content { flex: 1; }
+  .policy-title { font-size: 11px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+  .policy-text { font-size: 9px; color: var(--graphite); line-height: 1.6; font-weight: 400; }
+  .policy-text strong { font-weight: 600; color: var(--black); }
+
+  /* ══ TECH SPREAD ══ */
+  .tech { display: grid; grid-template-rows: auto 1fr auto; height: 100%; }
+  .tech-body { padding: 0 40px; display: flex; flex-direction: column; }
+  .tech-intro { margin-top: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--coal); }
+  .tech-intro-h { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--black); margin-bottom: 6px; }
+  .tech-intro-sub { font-size: 10px; color: var(--stone); font-weight: 400; line-height: 1.6; max-width: 420px; }
+
+  .blueprints { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 16px; flex: 0 0 auto; }
+  .blueprint { position: relative; padding: 12px 0; }
+  .blueprint:first-child { padding-right: 20px; border-right: 1px solid var(--smoke); }
+  .blueprint:last-child { padding-left: 20px; }
+  .bp-label { font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 4px; }
+  .bp-name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--black); margin-bottom: 12px; }
+  .bp-drawing { width: 100%; display: flex; align-items: center; justify-content: center; padding: 8px 0; background: var(--paper); margin-bottom: 12px; }
+  .bp-callouts { display: flex; flex-direction: column; gap: 5px; }
+  .bp-callout { display: flex; align-items: baseline; gap: 8px; font-size: 8px; line-height: 1.4; }
+  .bp-callout-num { font-family: 'JetBrains Mono', monospace; font-size: 7px; font-weight: 600; color: var(--blue); flex-shrink: 0; width: 14px; }
+  .bp-callout-text { color: var(--graphite); font-weight: 400; }
+  .bp-callout-text strong { font-weight: 600; color: var(--black); }
+
+  .consumable-spread { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--coal); display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: start; }
+  .consumable-visual { display: flex; align-items: center; justify-content: center; background: var(--paper); padding: 16px; aspect-ratio: 1; }
+  .consumable-info { display: flex; flex-direction: column; }
+  .consumable-info-h { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; color: var(--black); margin-bottom: 8px; }
+  .consumable-info-desc { font-size: 9px; color: var(--graphite); line-height: 1.65; font-weight: 400; margin-bottom: 12px; }
+  .consumable-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .consumable-spec { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--smoke); }
+  .consumable-spec:nth-child(even) { padding-left: 10px; border-left: 1px solid var(--smoke); }
+  .consumable-spec-label { font-family: 'JetBrains Mono', monospace; font-size: 6px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 2px; }
+  .consumable-spec-val { font-size: 9px; font-weight: 600; color: var(--black); }
+
+  .compat { margin-top: 14px; padding: 12px 16px; background: var(--coal); color: var(--white); display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; }
+  .compat-badge { font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; padding: 4px 8px; border: 1px solid rgba(255,255,255,0.2); white-space: nowrap; }
+  .compat-text { font-size: 8.5px; line-height: 1.5; font-weight: 400; opacity: 0.7; }
+  .compat-text strong { font-weight: 600; opacity: 1; color: var(--white); }
+
+  /* ══ CATALOG / BACK ══ */
+  .back { display: flex; flex-direction: column; height: 100%; }
+  .back-top { padding: 28px 40px 0; display: flex; justify-content: space-between; align-items: flex-start; }
+  .back-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); font-weight: 500; }
+  .back-body { flex: 1; padding: 0 40px; display: flex; flex-direction: column; }
+
+  .catalog { margin-top: 20px; }
+  .catalog-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--coal); margin-bottom: 16px; }
+  .catalog-h { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .catalog-count { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--stone); letter-spacing: 0.06em; font-weight: 400; }
+
+  .catalog-grid { display: grid; gap: 0; }
+  .catalog-grid--5 { grid-template-columns: repeat(5, 1fr); }
+  .catalog-grid--4 { grid-template-columns: repeat(4, 1fr); }
+  .catalog-grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+  .cat-item { display: flex; flex-direction: column; align-items: center; padding: 0 2px; position: relative; }
+  .cat-item + .cat-item::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: var(--smoke); }
+  .cat-thumb { width: 100%; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+  .cat-thumb svg { width: 50px; height: 68px; }
+  .cat-art { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; font-weight: 600; color: var(--black); text-align: center; letter-spacing: 0.02em; }
+  .cat-desc { font-size: 7px; color: var(--stone); text-align: center; margin-top: 2px; line-height: 1.4; font-weight: 400; }
+  .cat-badge { display: inline-block; background: var(--blue); color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 5.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; margin-top: 5px; font-weight: 500; }
+
+  .spec { margin-top: 16px; }
+  .spec-head { display: flex; align-items: baseline; gap: 10px; padding-bottom: 7px; border-bottom: 1px solid var(--coal); margin-bottom: 0; }
+  .spec-h { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--black); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 8px; line-height: 1.45; }
+  thead th { text-align: left; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 6.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); padding: 8px 6px 6px 0; border-bottom: 1px solid var(--smoke); white-space: nowrap; }
+  thead th:first-child { padding-left: 0; }
+  tbody td { padding: 6px 6px 6px 0; border-bottom: 1px solid var(--smoke); color: var(--graphite); vertical-align: middle; font-weight: 400; }
+  tbody td:first-child { padding-left: 0; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 7.5px; color: var(--black); letter-spacing: 0.02em; }
+  tbody tr:last-child td { border-bottom: none; }
+  .t-blue { color: var(--blue); font-weight: 600; }
+  .t-model { font-weight: 600; color: var(--black); }
+  .t-dim { color: var(--silver); }
+  .t-stella { display: inline-flex; align-items: center; gap: 4px; }
+  .t-stella::after { content: 'СТАЛЬ'; font-family: 'JetBrains Mono', monospace; font-size: 5px; letter-spacing: 0.1em; background: var(--coal); color: var(--white); padding: 1.5px 4px; font-weight: 600; position: relative; top: -0.5px; }
+
+  .divider { margin: 16px 0 6px; height: 1px; background: var(--smoke); }
+
+  .cons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 12px; }
+  .cons-item { display: flex; flex-direction: column; align-items: center; padding: 0 8px; position: relative; }
+  .cons-item + .cons-item::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 1px; background: var(--smoke); }
+  .cons-thumb { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+  .cons-thumb svg { width: 34px; height: 46px; }
+  .cons-art { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; font-weight: 600; color: var(--black); text-align: center; }
+  .cons-name { font-size: 7px; color: var(--stone); text-align: center; margin-top: 2px; line-height: 1.35; font-weight: 400; }
+
+  /* Footer */
+  .back-footer { margin-top: auto; border-top: 1px solid var(--smoke); padding: 18px 40px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .footer-left { display: flex; flex-direction: column; gap: 4px; }
+  .footer-company { font-family: 'JetBrains Mono', monospace; font-size: 7px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--graphite); }
+  .footer-info { font-size: 8px; color: var(--stone); line-height: 1.7; font-weight: 400; }
+  .footer-right { text-align: right; }
+  .footer-logo { font-size: 13px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); }
+  .footer-motto { font-family: 'JetBrains Mono', monospace; font-size: 6.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--silver); margin-top: 2px; }
+
+  @media print {
+    body { background: none; padding: 0; gap: 0; }
+    .page { box-shadow: none; page-break-after: always; }
+    .page-label, .section-divider-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║                     MERIDA КЛИК                             ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+
+<!-- ═══════════════════ КЛИК · ЛИЦЕВАЯ ═══════════════════ -->
+<div class="page-label">Лицевая сторона</div>
+<div class="page">
+  <div class="front">
+    <div class="top-bar">
+      <div class="brand">
+        <div class="brand-name">Merida</div>
+        <div class="brand-sub">Professional Hygiene Systems</div>
+      </div>
+      <div class="top-category">
+        <div class="top-category-line">Мыло-пена</div>
+        <div class="top-category-line">в&nbsp;картриджах</div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Защищённая система подачи</div>
+        <div class="hero-title">Клик<span class="dot">.</span></div>
+        <div class="hero-desc">Когда функциональность встречается с&nbsp;эстетикой. Герметичные картриджи, гигиеничная пена, одно нажатие.</div>
+      </div>
+      <div class="hero-rule"></div>
+
+      <div class="products">
+        <div class="prod-card prod-card--light">
+          <div class="prod-visual">
+            <svg viewBox="0 0 110 160" fill="none">
+              <rect x="25" y="4" width="60" height="130" rx="6" fill="#E8E7E2" stroke="#C4C3BC" stroke-width="0.8"/>
+              <rect x="37" y="40" width="36" height="8" rx="2" fill="#C4C3BC" opacity="0.35"/>
+              <circle cx="55" cy="24" r="6" fill="none" stroke="#0052CC" stroke-width="1.2"/>
+              <rect x="42" y="56" width="26" height="50" rx="3" fill="none" stroke="#C4C3BC" stroke-width="0.6" stroke-dasharray="3 2"/>
+              <rect x="25" y="134" width="60" height="18" fill="#DDDCD7"/>
+              <rect x="45" y="110" width="20" height="6" rx="2" fill="#0052CC" opacity="0.12"/>
+            </svg>
+          </div>
+          <div class="prod-name">Harmony</div>
+          <div class="prod-meta">ABS-пластик · белый · чёрный</div>
+        </div>
+        <div class="prod-card prod-card--dark">
+          <div class="prod-visual">
+            <svg viewBox="0 0 110 160" fill="none">
+              <rect x="25" y="4" width="60" height="130" rx="4" fill="#3A3A38" stroke="#555" stroke-width="0.4"/>
+              <rect x="26" y="5" width="58" height="128" rx="3.5" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.4"/>
+              <rect x="37" y="40" width="36" height="8" rx="2" fill="rgba(255,255,255,0.07)"/>
+              <circle cx="55" cy="24" r="6" fill="none" stroke="#0052CC" stroke-width="1.2"/>
+              <rect x="42" y="56" width="26" height="50" rx="3" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.6" stroke-dasharray="3 2"/>
+              <rect x="25" y="134" width="60" height="18" fill="#2A2A28"/>
+            </svg>
+          </div>
+          <div class="prod-name">Stella</div>
+          <div class="prod-meta">Нерж. сталь AISI&nbsp;304</div>
+          <div class="prod-tag">Доп.&nbsp;опция · окрашивание в&nbsp;любой RAL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feat">
+        <div class="feat-num">01</div>
+        <div class="feat-title">Система Клик</div>
+        <div class="feat-text">Картридж встаёт одним щелчком&nbsp;— без&nbsp;инструментов и&nbsp;настроек</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">02</div>
+        <div class="feat-title">Гигиеничная пена</div>
+        <div class="feat-text">Герметичный картридж исключает контакт с&nbsp;окружающей средой</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">03</div>
+        <div class="feat-title">2&nbsp;000 порций</div>
+        <div class="feat-text">Один картридж 800&nbsp;мл обслуживает до&nbsp;2&nbsp;000&nbsp;пользователей</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">04</div>
+        <div class="feat-title">pH-нейтральная формула</div>
+        <div class="feat-text">Подходит для чувствительной кожи</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ КЛИК · ДЕТАЛИ ═══════════════════ -->
+<div class="page-label">Детали продукта</div>
+<div class="page">
+  <div class="detail">
+    <div class="top-bar">
+      <div class="brand">
+        <div class="brand-name">Merida</div>
+        <div class="brand-sub">Professional Hygiene Systems</div>
+      </div>
+      <div class="top-category">
+        <div class="top-category-line">Клик</div>
+        <div class="top-category-line">Обзор системы</div>
+      </div>
+    </div>
+
+    <div class="detail-body">
+      <div class="system-block">
+        <div class="system-text">
+          <div class="system-eyebrow">Как это работает</div>
+          <div class="system-title">Один клик&nbsp;—<br>чистые руки</div>
+          <div class="system-desc">
+            Нажмите на&nbsp;рычаг или поднесите руку к&nbsp;сенсору&nbsp;— дозатор выдаёт порцию мягкой пены. Картридж защёлкивается в&nbsp;корпус одним движением: никаких переливаний, трубок, протечек.
+            <br><br>
+            Герметичная конструкция картриджа исключает контакт мыла с&nbsp;воздухом. Каждая порция&nbsp;— стерильна.
+          </div>
+        </div>
+        <div class="system-visual">
+          <svg viewBox="0 0 180 200" fill="none" width="160" height="178">
+            <rect x="50" y="10" width="80" height="160" rx="7" fill="#E8E7E2" stroke="#C4C3BC" stroke-width="1"/>
+            <circle cx="90" cy="40" r="10" fill="none" stroke="#0052CC" stroke-width="1.5"/>
+            <circle cx="90" cy="40" r="3" fill="#0052CC" opacity="0.15"/>
+            <rect x="65" y="65" width="50" height="8" rx="2" fill="#C4C3BC" opacity="0.4"/>
+            <rect x="68" y="82" width="44" height="60" rx="3" fill="none" stroke="#C4C3BC" stroke-width="0.7" stroke-dasharray="4 2"/>
+            <rect x="50" y="170" width="80" height="18" fill="#DDDCD7"/>
+            <!-- Foam drops -->
+            <circle cx="90" cy="194" r="3" fill="#0052CC" opacity="0.1"/>
+            <circle cx="86" cy="198" r="2" fill="#0052CC" opacity="0.07"/>
+            <circle cx="94" cy="197" r="2.5" fill="#0052CC" opacity="0.07"/>
+            <!-- Click arrow -->
+            <path d="M140 100 L155 100 L155 95 L170 105 L155 115 L155 110 L140 110 Z" fill="#0052CC" opacity="0.12"/>
+            <text x="155" y="125" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7" fill="#0052CC" font-weight="500">клик</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="benefits">
+        <div class="benefits-head">
+          <div class="benefits-h">Преимущества системы</div>
+        </div>
+        <div class="benefits-grid">
+          <div class="benefit">
+            <div class="benefit-num">01</div>
+            <div class="benefit-title">Герметичный картридж</div>
+            <div class="benefit-text">Мыло не&nbsp;контактирует с&nbsp;воздухом и&nbsp;поверхностями. Исключено бактериальное загрязнение, характерное для систем с&nbsp;доливом.</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-num">02</div>
+            <div class="benefit-title">Механика + сенсор</div>
+            <div class="benefit-text">Механическая модель для базовых объектов, сенсорная&nbsp;— для пространств с&nbsp;повышенными требованиями к&nbsp;гигиене.</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-num">03</div>
+            <div class="benefit-title">Экономичный расход</div>
+            <div class="benefit-text">Пенная формула расходуется в&nbsp;3–5&nbsp;раз экономнее жидкого мыла. 800&nbsp;мл картридж = 2&nbsp;000&nbsp;порций.</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-num">04</div>
+            <div class="benefit-title">Уход за&nbsp;кожей</div>
+            <div class="benefit-text">pH-нейтральная формула Премиум подходит для чувствительной кожи. Без&nbsp;красителей, нейтральный аромат.</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-num">05</div>
+            <div class="benefit-title">Замена за&nbsp;5&nbsp;секунд</div>
+            <div class="benefit-text">Откройте, выньте пустой картридж, вставьте новый до&nbsp;щелчка. Справится любой сотрудник без&nbsp;инструкций.</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-num">06</div>
+            <div class="benefit-title">Защита от&nbsp;вандализма</div>
+            <div class="benefit-text">Закрытый корпус с&nbsp;ключевым замком. Картридж невозможно извлечь без&nbsp;ключа&nbsp;— мыло не&nbsp;украдут.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="compare-card">
+          <div class="compare-line">Линейка</div>
+          <div class="compare-name">Harmony</div>
+          <div class="compare-desc">ABS-пластик с&nbsp;матовым покрытием. Лёгкий монтаж, два цвета, механическая и&nbsp;сенсорная модели.</div>
+          <div class="compare-specs">
+            <div class="compare-spec"><span class="compare-spec-label">Материал</span><span class="compare-spec-val">ABS-пластик</span></div>
+            <div class="compare-spec"><span class="compare-spec-label">Цвета</span><span class="compare-spec-val">белый · чёрный</span></div>
+            <div class="compare-spec"><span class="compare-spec-label">Подача</span><span class="compare-spec-val">механика · сенсор</span></div>
+            <div class="compare-spec"><span class="compare-spec-label">Питание (сенсор)</span><span class="compare-spec-val">4 × LR6 (AA)</span></div>
+          </div>
+          <div class="compare-tag compare-tag--blue">Диспенсерная политика</div>
+        </div>
+        <div class="compare-card">
+          <div class="compare-line">Линейка</div>
+          <div class="compare-name">Stella</div>
+          <div class="compare-desc">Нержавеющая сталь AISI&nbsp;304 для премиальных интерьеров. Сенсорная подача, три варианта финиша.</div>
+          <div class="compare-specs">
+            <div class="compare-spec"><span class="compare-spec-label">Материал</span><span class="compare-spec-val">нерж. сталь AISI&nbsp;304</span></div>
+            <div class="compare-spec"><span class="compare-spec-label">Финиш</span><span class="compare-spec-val">полиров. · матовый · антифингер</span></div>
+            <div class="compare-spec"><span class="compare-spec-label">Подача</span><span class="compare-spec-val">сенсор</span></div>
+            <div class="compare-spec"><span class="compare-spec-label">Питание</span><span class="compare-spec-val">4 × LR6 (AA)</span></div>
+          </div>
+          <div class="compare-tag">Доп.&nbsp;опция · окрашивание в&nbsp;любой RAL</div>
+        </div>
+      </div>
+
+      <div class="policy">
+        <div class="policy-icon">Д</div>
+        <div class="policy-content">
+          <div class="policy-title">Диспенсерная политика</div>
+          <div class="policy-text">Диспенсеры Harmony Клик доступны по&nbsp;программе диспенсерной политики: <strong>оборудование предоставляется бесплатно</strong> при&nbsp;заключении договора на&nbsp;поставку картриджей. Подробности&nbsp;— у&nbsp;вашего менеджера.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="back-footer">
+      <div class="footer-left"><div class="footer-company">Контакты дистрибьютора</div><div class="footer-info">тел. +7 (___) ___-__-__ · email@example.com<br>www.merida.ru</div></div>
+      <div class="footer-right"><div class="footer-logo">Merida</div><div class="footer-motto">Business starts with comfort</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ КЛИК · ТЕХСПРЕД ═══════════════════ -->
+<div class="page-label">Технический спред</div>
+<div class="page">
+  <div class="tech">
+    <div class="top-bar">
+      <div class="brand"><div class="brand-name">Merida</div><div class="brand-sub">Professional Hygiene Systems</div></div>
+      <div class="top-category"><div class="top-category-line">Клик</div><div class="top-category-line">Технические данные</div></div>
+    </div>
+
+    <div class="tech-body">
+      <div class="tech-intro">
+        <div class="tech-intro-h">Конструкция и&nbsp;материалы</div>
+        <div class="tech-intro-sub">Компактные дозаторы с&nbsp;системой картриджей Клик. Две линейки под&nbsp;разные сегменты объектов.</div>
+      </div>
+
+      <div class="blueprints">
+        <div class="blueprint">
+          <div class="bp-label">Серия 01 · ABS-пластик</div>
+          <div class="bp-name">Harmony Клик</div>
+          <div class="bp-drawing">
+            <svg viewBox="0 0 220 240" fill="none" width="200" height="218">
+              <rect x="60" y="10" width="100" height="185" rx="7" fill="#EDEDE9" stroke="#C4C3BC" stroke-width="1"/>
+              <circle cx="110" cy="45" r="12" fill="none" stroke="#0052CC" stroke-width="1.5"/>
+              <circle cx="110" cy="45" r="4" fill="#0052CC" opacity="0.12"/>
+              <rect x="80" y="72" width="60" height="10" rx="2" fill="#C4C3BC" opacity="0.4"/>
+              <rect x="82" y="92" width="56" height="72" rx="3" fill="none" stroke="#C4C3BC" stroke-width="0.7" stroke-dasharray="4 2"/>
+              <rect x="60" y="195" width="100" height="20" fill="#DDDCD7"/>
+              <!-- Callout 1 -->
+              <line x1="78" y1="45" x2="25" y2="30" stroke="#0052CC" stroke-width="0.4" opacity="0.5"/>
+              <circle cx="25" cy="30" r="6" fill="#0052CC" opacity="0.08" stroke="#0052CC" stroke-width="0.5"/>
+              <text x="25" y="33" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6" fill="#0052CC" font-weight="600">1</text>
+              <!-- Callout 2 -->
+              <line x1="80" y1="130" x2="25" y2="100" stroke="#0052CC" stroke-width="0.4" opacity="0.5"/>
+              <circle cx="25" cy="100" r="6" fill="#0052CC" opacity="0.08" stroke="#0052CC" stroke-width="0.5"/>
+              <text x="25" y="103" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6" fill="#0052CC" font-weight="600">2</text>
+              <!-- Callout 3 -->
+              <line x1="110" y1="205" x2="25" y2="165" stroke="#0052CC" stroke-width="0.4" opacity="0.5"/>
+              <circle cx="25" cy="165" r="6" fill="#0052CC" opacity="0.08" stroke="#0052CC" stroke-width="0.5"/>
+              <text x="25" y="168" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6" fill="#0052CC" font-weight="600">3</text>
+            </svg>
+          </div>
+          <div class="bp-callouts">
+            <div class="bp-callout"><span class="bp-callout-num">1</span><span class="bp-callout-text"><strong>Рычаг / ИК-сенсор</strong>&nbsp;— механическая или бесконтактная активация</span></div>
+            <div class="bp-callout"><span class="bp-callout-num">2</span><span class="bp-callout-text"><strong>Картридж 800&nbsp;мл</strong>&nbsp;— герметичный, встаёт до&nbsp;щелчка без&nbsp;инструментов</span></div>
+            <div class="bp-callout"><span class="bp-callout-num">3</span><span class="bp-callout-text"><strong>Замок</strong>&nbsp;— ключевой доступ, защита от&nbsp;несанкционированного вскрытия</span></div>
+          </div>
+        </div>
+
+        <div class="blueprint">
+          <div class="bp-label">Серия 02 · Нержавеющая сталь AISI&nbsp;304</div>
+          <div class="bp-name">Stella Клик</div>
+          <div class="bp-drawing">
+            <svg viewBox="0 0 220 240" fill="none" width="200" height="218">
+              <rect x="60" y="10" width="100" height="185" rx="4" fill="#9A9A96" stroke="#7A7A76" stroke-width="0.8"/>
+              <rect x="62" y="12" width="96" height="181" rx="3" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+              <rect x="62" y="12" width="8" height="181" rx="2" fill="rgba(255,255,255,0.08)"/>
+              <circle cx="110" cy="45" r="12" fill="none" stroke="#0052CC" stroke-width="1.5"/>
+              <circle cx="110" cy="45" r="4" fill="#0052CC" opacity="0.12"/>
+              <rect x="80" y="72" width="60" height="10" rx="2" fill="rgba(255,255,255,0.15)"/>
+              <rect x="82" y="92" width="56" height="72" rx="3" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.7" stroke-dasharray="4 2"/>
+              <rect x="60" y="195" width="100" height="20" fill="#8A8A86"/>
+              <!-- Callout A -->
+              <line x1="66" y1="70" x2="25" y2="40" stroke="#0052CC" stroke-width="0.4" opacity="0.5"/>
+              <circle cx="25" cy="40" r="6" fill="#0052CC" opacity="0.08" stroke="#0052CC" stroke-width="0.5"/>
+              <text x="25" y="43" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6" fill="#0052CC" font-weight="600">A</text>
+              <!-- Callout B -->
+              <line x1="66" y1="140" x2="25" y2="110" stroke="#0052CC" stroke-width="0.4" opacity="0.5"/>
+              <circle cx="25" cy="110" r="6" fill="#0052CC" opacity="0.08" stroke="#0052CC" stroke-width="0.5"/>
+              <text x="25" y="113" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6" fill="#0052CC" font-weight="600">B</text>
+            </svg>
+          </div>
+          <div class="bp-callouts">
+            <div class="bp-callout"><span class="bp-callout-num">A</span><span class="bp-callout-text"><strong>AISI&nbsp;304</strong>&nbsp;— коррозионностойкая сталь, три варианта финиша</span></div>
+            <div class="bp-callout"><span class="bp-callout-num">B</span><span class="bp-callout-text"><strong>Порошковое покрытие</strong>&nbsp;— доп.&nbsp;опция, окрашивание в&nbsp;любой цвет по&nbsp;шкале RAL</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="consumable-spread">
+        <div class="consumable-visual">
+          <svg viewBox="0 0 100 120" fill="none" width="110" height="132">
+            <rect x="20" y="8" width="60" height="90" rx="6" fill="#E8E7E2" stroke="#C4C3BC" stroke-width="0.8"/>
+            <rect x="28" y="16" width="44" height="30" rx="3" fill="#B8D4F0" opacity="0.3"/>
+            <rect x="38" y="52" width="24" height="6" rx="2" fill="#C4C3BC" opacity="0.4"/>
+            <rect x="42" y="65" width="16" height="25" rx="2" fill="none" stroke="#C4C3BC" stroke-width="0.6" stroke-dasharray="3 2"/>
+            <text x="50" y="110" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6.5" fill="#0052CC" font-weight="500">800 мл</text>
+          </svg>
+        </div>
+        <div class="consumable-info">
+          <div class="consumable-info-h">Мыло-пена Клик</div>
+          <div class="consumable-info-desc">Готовый к&nbsp;установке герметичный картридж. Нежная пена бережно очищает кожу рук, не&nbsp;пересушивая и&nbsp;не&nbsp;раздражая.</div>
+          <div class="consumable-specs">
+            <div class="consumable-spec"><div class="consumable-spec-label">Формула</div><div class="consumable-spec-val">pH-нейтральная</div></div>
+            <div class="consumable-spec"><div class="consumable-spec-label">Аромат</div><div class="consumable-spec-val">нейтральный</div></div>
+            <div class="consumable-spec"><div class="consumable-spec-label">Объём</div><div class="consumable-spec-val">800 мл</div></div>
+            <div class="consumable-spec"><div class="consumable-spec-label">Порций</div><div class="consumable-spec-val">2 000</div></div>
+            <div class="consumable-spec"><div class="consumable-spec-label">Цвет пены</div><div class="consumable-spec-val">прозрачный</div></div>
+            <div class="consumable-spec"><div class="consumable-spec-label">Упаковка</div><div class="consumable-spec-val">6 шт. / короб</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="compat">
+        <div class="compat-badge">Совместимость</div>
+        <div class="compat-text">Картриджи Клик совместимы со&nbsp;<strong>всеми диспенсерами линейки</strong>&nbsp;— Harmony (пластик) и&nbsp;Stella (сталь), механическими и&nbsp;сенсорными.</div>
+      </div>
+    </div>
+
+    <div class="back-footer">
+      <div class="footer-left"><div class="footer-company">Контакты дистрибьютора</div><div class="footer-info">тел. +7 (___) ___-__-__ · email@example.com<br>www.merida.ru</div></div>
+      <div class="footer-right"><div class="footer-logo">Merida</div><div class="footer-motto">Business starts with comfort</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ КЛИК · КАТАЛОГ ═══════════════════ -->
+<div class="page-label">Каталог · Спецификации</div>
+<div class="page">
+  <div class="back">
+    <div class="back-top">
+      <div class="brand-name" style="font-size:13px;">Merida</div>
+      <div class="back-label">Клик · Каталог</div>
+    </div>
+    <div class="back-body">
+
+      <div class="catalog">
+        <div class="catalog-head">
+          <div class="catalog-h">Диспенсеры</div>
+          <div class="catalog-count">5+ моделей</div>
+        </div>
+        <div class="catalog-grid catalog-grid--5">
+          <div class="cat-item">
+            <div class="cat-thumb"><svg viewBox="0 0 54 72" fill="none"><rect x="10" y="2" width="34" height="62" rx="5" fill="#EDEDE9" stroke="#C4C3BC" stroke-width="0.6"/><circle cx="27" cy="16" r="4" fill="none" stroke="#0052CC" stroke-width="0.9"/><rect x="17" y="28" width="20" height="5" rx="1" fill="#C4C3BC" opacity="0.35"/><rect x="10" y="64" width="34" height="6" fill="#DDDCD7"/></svg></div>
+            <div class="cat-art">DHB101.C</div>
+            <div class="cat-desc">Harmony<br>механика · белый</div>
+          </div>
+          <div class="cat-item">
+            <div class="cat-thumb"><svg viewBox="0 0 54 72" fill="none"><rect x="10" y="2" width="34" height="62" rx="5" fill="#2D2D2B" stroke="#444" stroke-width="0.4"/><circle cx="27" cy="16" r="4" fill="none" stroke="#0052CC" stroke-width="0.9"/><rect x="17" y="28" width="20" height="5" rx="1" fill="rgba(255,255,255,0.07)"/><rect x="10" y="64" width="34" height="6" fill="#242422"/></svg></div>
+            <div class="cat-art">DHC101.C</div>
+            <div class="cat-desc">Harmony<br>механика · чёрный</div>
+          </div>
+          <div class="cat-item">
+            <div class="cat-thumb"><svg viewBox="0 0 54 72" fill="none"><rect x="10" y="2" width="34" height="62" rx="5" fill="#EDEDE9" stroke="#C4C3BC" stroke-width="0.6"/><circle cx="27" cy="16" r="4" fill="none" stroke="#0052CC" stroke-width="0.9"/><rect x="20" y="36" width="14" height="2" rx="1" fill="#0052CC" opacity="0.25"/><rect x="17" y="28" width="20" height="5" rx="1" fill="#C4C3BC" opacity="0.35"/><rect x="10" y="64" width="34" height="6" fill="#DDDCD7"/></svg></div>
+            <div class="cat-art">—</div>
+            <div class="cat-desc">Harmony<br>сенсор · белый</div>
+            <div class="cat-badge">сенсор</div>
+          </div>
+          <div class="cat-item">
+            <div class="cat-thumb"><svg viewBox="0 0 54 72" fill="none"><rect x="10" y="2" width="34" height="62" rx="3" fill="#A4A49E" stroke="#888" stroke-width="0.4"/><rect x="11" y="3" width="32" height="60" rx="2.5" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.3"/><circle cx="27" cy="16" r="4" fill="none" stroke="#0052CC" stroke-width="0.9"/><rect x="17" y="28" width="20" height="5" rx="1" fill="rgba(255,255,255,0.18)"/><rect x="10" y="64" width="34" height="6" fill="#929290"/></svg></div>
+            <div class="cat-art">—</div>
+            <div class="cat-desc">Stella<br>полированный</div>
+          </div>
+          <div class="cat-item">
+            <div class="cat-thumb"><svg viewBox="0 0 54 72" fill="none"><rect x="10" y="2" width="34" height="62" rx="3" fill="#7A7A76" stroke="#666" stroke-width="0.4"/><circle cx="27" cy="16" r="4" fill="none" stroke="#0052CC" stroke-width="0.9"/><rect x="17" y="28" width="20" height="5" rx="1" fill="rgba(255,255,255,0.06)"/><rect x="10" y="64" width="34" height="6" fill="#6A6A64"/></svg></div>
+            <div class="cat-art">—</div>
+            <div class="cat-desc">Stella<br>антифингер</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec">
+        <table>
+          <thead><tr><th>Артикул</th><th>Модель</th><th>Подача</th><th>Материал</th><th>Цвет</th><th>Батарея</th><th>Гарантия</th></tr></thead>
+          <tbody>
+            <tr><td>DHB101.C</td><td class="t-model">Harmony</td><td>механика</td><td>ABS-пластик</td><td>белый</td><td class="t-dim">—</td><td>12&nbsp;мес.</td></tr>
+            <tr><td>DHC101.C</td><td class="t-model">Harmony</td><td>механика</td><td>ABS-пластик</td><td>чёрный</td><td class="t-dim">—</td><td>12&nbsp;мес.</td></tr>
+            <tr><td>—</td><td class="t-model">Harmony</td><td class="t-blue">сенсор</td><td>ABS-пластик</td><td>белый</td><td>4 × LR6</td><td>12&nbsp;мес.</td></tr>
+            <tr><td>—</td><td class="t-model"><span class="t-stella">Stella</span></td><td class="t-blue">сенсор</td><td>AISI&nbsp;304</td><td>полированный</td><td>4 × LR6</td><td>12&nbsp;мес.</td></tr>
+            <tr><td>—</td><td class="t-model"><span class="t-stella">Stella</span></td><td class="t-blue">сенсор</td><td>AISI&nbsp;304</td><td>матовый</td><td>4 × LR6</td><td>12&nbsp;мес.</td></tr>
+            <tr><td>—</td><td class="t-model"><span class="t-stella">Stella</span></td><td class="t-blue">сенсор</td><td>AISI&nbsp;304</td><td>антифингер</td><td>4 × LR6</td><td>12&nbsp;мес.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="spec">
+        <div class="spec-head">
+          <div class="spec-h">Мыло-пена в&nbsp;картриджах</div>
+          <div class="catalog-count">1+ артикул</div>
+        </div>
+        <table>
+          <thead><tr><th>Артикул</th><th>Линейка</th><th>Аромат</th><th>Цвет</th><th>Свойства</th><th>Объём</th><th>Порций</th><th>Шт./кор.</th></tr></thead>
+          <tbody>
+            <tr><td>LFM101</td><td class="t-model">Премиум</td><td>нейтральный</td><td>прозрачный</td><td>pH-нейтральное, для чувствит. кожи</td><td class="t-blue">800&nbsp;мл</td><td>2&nbsp;000</td><td>6</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="back-footer">
+      <div class="footer-left"><div class="footer-company">Контакты дистрибьютора</div><div class="footer-info">тел. +7 (___) ___-__-__ · email@example.com<br>www.merida.ru</div></div>
+      <div class="footer-right"><div class="footer-logo">Merida</div><div class="footer-motto">Business starts with comfort</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║                     MERIDA АРОМА                            ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+-e 
+</body>
+</html>
