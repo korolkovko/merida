@@ -665,5 +665,53 @@
   </div>
 </div>
 
+<script>
+(function() {
+  const PAGE_WIDTH_MM = 210;
+  const MM_TO_PX = 3.7795275591; // 1mm ≈ 3.78px at 96dpi
+  const PAGE_WIDTH_PX = PAGE_WIDTH_MM * MM_TO_PX;
+  const MOBILE_BREAKPOINT = 768;
+  const PADDING = 16; // отступы по краям на мобильном
+
+  function applyMobileScale() {
+    const pages = document.querySelectorAll('.page');
+    const labels = document.querySelectorAll('.page-label, .section-divider-label');
+
+    if (window.innerWidth < MOBILE_BREAKPOINT) {
+      const availableWidth = window.innerWidth - (PADDING * 2);
+      const scale = availableWidth / PAGE_WIDTH_PX;
+
+      pages.forEach(page => {
+        page.style.transform = `scale(${scale})`;
+        page.style.transformOrigin = 'top center';
+        page.style.marginBottom = `-${(1 - scale) * page.offsetHeight}px`;
+      });
+
+      labels.forEach(label => {
+        label.style.width = `${availableWidth}px`;
+      });
+
+      document.body.style.padding = `40px ${PADDING}px`;
+      document.body.style.gap = '40px';
+    } else {
+      pages.forEach(page => {
+        page.style.transform = '';
+        page.style.transformOrigin = '';
+        page.style.marginBottom = '';
+      });
+
+      labels.forEach(label => {
+        label.style.width = '';
+      });
+
+      document.body.style.padding = '';
+      document.body.style.gap = '';
+    }
+  }
+
+  applyMobileScale();
+  window.addEventListener('resize', applyMobileScale);
+})();
+</script>
 </body>
 </html>
