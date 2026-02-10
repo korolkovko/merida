@@ -4,147 +4,247 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Merida Concepts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: #D5D3CD;
+            font-family: 'Instrument Sans', -apple-system, sans-serif;
+            color: #141413;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 60px 24px 80px;
+            -webkit-font-smoothing: antialiased;
         }
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-        h1 {
-            color: #fff;
+
+        /* Header */
+        .header {
             text-align: center;
             margin-bottom: 40px;
-            font-size: 2.5rem;
-            font-weight: 300;
+        }
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: #141413;
+        }
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #8A8983;
+            margin-top: 4px;
         }
 
-        /* Version tabs */
+        /* Tabs */
         .tabs {
             display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 32px;
+            background: #C4C3BC;
+            border-radius: 10px;
+            padding: 3px;
+            margin-bottom: 40px;
         }
         .tab {
-            padding: 10px 28px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 1rem;
-            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 10px 32px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: #5A5954;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.25s;
         }
         .tab:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.8);
+            color: #2C2B28;
         }
         .tab.active {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-            color: #fff;
+            background: #FAFAF8;
+            color: #141413;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
 
-        /* Cards */
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-        }
+        /* Cards grid */
         .version-group {
             display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 960px;
+            width: 100%;
         }
         .version-group.active {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
         }
+
+        /* Card */
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 30px;
             text-decoration: none;
-            color: #fff;
-            transition: transform 0.3s, background 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #FAFAF8;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         .card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.1);
         }
-        .card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            font-weight: 500;
+
+        /* Preview container — A4 ratio */
+        .preview {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 210 / 297;
+            overflow: hidden;
+            background: #E6E5E0;
         }
-        .card p {
-            opacity: 0.7;
-            font-size: 0.9rem;
+        .preview iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 793px;   /* A4 at 96dpi */
+            height: 1122px;
+            border: none;
+            transform-origin: top left;
+            pointer-events: none;
+        }
+
+        /* Caption */
+        .caption {
+            padding: 16px 20px;
+            border-top: 1px solid #E6E5E0;
+        }
+        .caption-title {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 3px;
+        }
+        .caption-desc {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8A8983;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { padding: 40px 16px 60px; }
+            .version-group { grid-template-columns: 1fr; max-width: 360px; }
+            .tabs { margin-bottom: 28px; }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .version-group { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Merida Concepts</h1>
 
-        <div class="tabs">
-            <div class="tab active" data-version="v1">V1</div>
-            <div class="tab" data-version="v2">V2</div>
-        </div>
+    <div class="header">
+        <div class="logo">Merida</div>
+        <div class="subtitle">Концепции продуктов</div>
+    </div>
 
-        <div class="version-group active" id="v1">
-            <a href="merida-automatik-concept.html" class="card">
-                <h2>Automatik</h2>
-                <p>Концепция автоматических систем</p>
-            </a>
-            <a href="merida-click-concept.html" class="card">
-                <h2>Click</h2>
-                <p>Концепция Click систем</p>
-            </a>
-            <a href="merida-aroma-concept.html" class="card">
-                <h2>Aroma</h2>
-                <p>Концепция ароматизации</p>
-            </a>
-        </div>
+    <div class="tabs">
+        <button class="tab active" data-version="v1">Версия 1</button>
+        <button class="tab" data-version="v2">Версия 2</button>
+    </div>
 
-        <div class="version-group" id="v2">
-            <a href="second-ver-merida-automatik.html" class="card">
-                <h2>Automatik</h2>
-                <p>Концепция автоматических систем</p>
-            </a>
-            <a href="second-ver-merida-click.html" class="card">
-                <h2>Click</h2>
-                <p>Концепция Click систем</p>
-            </a>
-            <a href="second-ver-merida-aroma.html" class="card">
-                <h2>Aroma</h2>
-                <p>Концепция ароматизации</p>
-            </a>
-        </div>
+    <div class="version-group active" id="v1">
+        <a href="merida-automatik-concept.html" class="card">
+            <div class="preview">
+                <iframe src="merida-automatik-concept.html" loading="lazy" tabindex="-1"></iframe>
+            </div>
+            <div class="caption">
+                <div class="caption-title">Автоматик</div>
+                <div class="caption-desc">Автоматическая подача полотенец</div>
+            </div>
+        </a>
+        <a href="merida-click-concept.html" class="card">
+            <div class="preview">
+                <iframe src="merida-click-concept.html" loading="lazy" tabindex="-1"></iframe>
+            </div>
+            <div class="caption">
+                <div class="caption-title">Клик</div>
+                <div class="caption-desc">Дозирование жидкого мыла</div>
+            </div>
+        </a>
+        <a href="merida-aroma-concept.html" class="card">
+            <div class="preview">
+                <iframe src="merida-aroma-concept.html" loading="lazy" tabindex="-1"></iframe>
+            </div>
+            <div class="caption">
+                <div class="caption-title">Арома</div>
+                <div class="caption-desc">Система ароматизации</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="version-group" id="v2">
+        <a href="second-ver-merida-automatik.html" class="card">
+            <div class="preview">
+                <iframe src="second-ver-merida-automatik.html" loading="lazy" tabindex="-1"></iframe>
+            </div>
+            <div class="caption">
+                <div class="caption-title">Автоматик</div>
+                <div class="caption-desc">Автоматическая подача полотенец</div>
+            </div>
+        </a>
+        <a href="second-ver-merida-click.html" class="card">
+            <div class="preview">
+                <iframe src="second-ver-merida-click.html" loading="lazy" tabindex="-1"></iframe>
+            </div>
+            <div class="caption">
+                <div class="caption-title">Клик</div>
+                <div class="caption-desc">Дозирование жидкого мыла</div>
+            </div>
+        </a>
+        <a href="second-ver-merida-aroma.html" class="card">
+            <div class="preview">
+                <iframe src="second-ver-merida-aroma.html" loading="lazy" tabindex="-1"></iframe>
+            </div>
+            <div class="caption">
+                <div class="caption-title">Арома</div>
+                <div class="caption-desc">Система ароматизации</div>
+            </div>
+        </a>
     </div>
 
     <script>
+        // Scale iframes to fit preview containers
+        function scaleIframes() {
+            document.querySelectorAll('.preview').forEach(container => {
+                const iframe = container.querySelector('iframe');
+                const scale = container.offsetWidth / 793;
+                iframe.style.transform = `scale(${scale})`;
+            });
+        }
+
+        scaleIframes();
+        window.addEventListener('resize', scaleIframes);
+
+        // Tab switching
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.version-group').forEach(g => g.classList.remove('active'));
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.version).classList.add('active');
+                // Re-scale after switching (new iframes may have become visible)
+                setTimeout(scaleIframes, 50);
             });
         });
     </script>
