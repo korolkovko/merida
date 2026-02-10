@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERIDA КЛИК</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-900: #001B44;
+    --blue-800: #002D6B;
+    --blue-700: #003D8F;
+    --blue-500: #0052CC;
+    --blue-400: #2B7FFF;
+    --blue-300: #6AA3FF;
+    --blue-100: #DDE9FA;
+    --blue-50:  #F0F5FF;
+
+    --warm: #E2582E;
+    --warm-light: #FFF2ED;
+
+    --white: #FAFBFD;
+    --g50: #F4F5F7;
+    --g100: #EAECF0;
+    --g200: #D5D8E0;
+    --g300: #B0B5C3;
+    --g400: #8A90A0;
+    --g500: #6B7280;
+    --g600: #4B5060;
+    --g700: #353845;
+    --g800: #23262F;
+    --g900: #16181D;
+    --black: #0C0D10;
+
+    --page-w: 210mm;
+    --page-h: 297mm;
+    --pad: 40px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #C8CBD4;
+    font-family: 'Manrope', -apple-system, sans-serif;
+    color: var(--g900);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    padding: 48px 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--g400);
+    margin-bottom: -36px;
+    font-weight: 500;
+  }
+
+  .page {
+    width: var(--page-w);
+    height: var(--page-h);
+    background: var(--white);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 16px 48px rgba(0,0,0,0.12);
+  }
+
+  .ftr-num { font-family: 'IBM Plex Mono', monospace; font-size: 7px; color: var(--g300); font-weight: 500; }
+
+  /* ═══ COVER ═══ */
+  .cover { height: 100%; display: grid; grid-template-rows: auto 1fr auto; background: var(--blue-900); color: var(--white); }
+  .c-top { padding: 28px var(--pad); display: flex; justify-content: space-between; align-items: center; }
+  .c-logo { font-size: 14px; font-weight: 800; letter-spacing: 0.35em; text-transform: uppercase; }
+  .c-system { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); font-weight: 500; }
+  .c-center { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 var(--pad); }
+  .c-products { display: flex; align-items: flex-end; justify-content: center; gap: 48px; margin-bottom: 44px; }
+  .c-product { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .c-product-label { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; }
+  .c-product:first-child .c-product-label { color: var(--blue-300); }
+  .c-product:last-child .c-product-label { color: var(--warm); }
+  .c-product-name { font-size: 16px; font-weight: 700; letter-spacing: 0.02em; color: rgba(255,255,255,0.7); }
+  .c-title-block { text-align: center; }
+  .c-title { font-size: 72px; font-weight: 800; letter-spacing: -0.05em; line-height: 0.9; color: var(--white); margin-bottom: 18px; }
+  .c-sub-line1 { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.4); line-height: 1.6; }
+  .c-sub-line2 { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7); line-height: 1.6; margin-top: 4px; letter-spacing: 0.01em; white-space: nowrap; }
+  .c-bottom { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,0.08); }
+  .c-fact { padding: 16px 18px; position: relative; }
+  .c-fact + .c-fact::before { content: ''; position: absolute; left: 0; top: 12px; bottom: 12px; width: 1px; background: rgba(255,255,255,0.08); }
+  .c-fact-val { font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 700; color: var(--warm); line-height: 1; margin-bottom: 3px; }
+  .c-fact-label { font-size: 7.5px; color: rgba(255,255,255,0.7); font-weight: 500; line-height: 1.4; }
+
+  /* ═══ TECH SPREAD ═══ */
+  .tech { height: 100%; display: grid; grid-template-rows: auto 1fr auto; }
+  .tech::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--blue-500) 50%, var(--warm) 50%); z-index: 2; }
+  .t-hdr { padding: 24px var(--pad) 0; display: flex; justify-content: space-between; align-items: center; }
+  .t-hdr-left { display: flex; align-items: baseline; gap: 10px; }
+  .t-logo { font-size: 12px; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; color: var(--blue-800); }
+  .t-hdr-div { width: 1px; height: 11px; background: var(--g200); }
+  .t-hdr-ctx { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--g400); font-weight: 500; }
+  .t-body { display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+  .t-diagram { background: var(--g50); display: flex; align-items: center; justify-content: center; padding: 20px; border-right: 1px solid var(--g100); }
+  .t-info { padding: 24px 28px 16px; display: flex; flex-direction: column; }
+  .t-info-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm); font-weight: 600; margin-bottom: 8px; }
+  .t-info-title { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; color: var(--g900); }
+  .t-info-sub { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--g400); font-weight: 500; margin-top: 6px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--g100); }
+  .t-list { flex: 1; display: flex; flex-direction: column; }
+  .t-feat { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; padding: 9px 0; border-bottom: 1px solid var(--g100); }
+  .t-feat:last-child { border-bottom: none; }
+  .t-feat-icon { width: 30px; height: 30px; border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+  .t-feat-icon--b { background: var(--blue-50); }
+  .t-feat-icon--w { background: var(--warm-light); }
+  .t-feat-icon svg { width: 15px; height: 15px; }
+  .t-feat-name { font-size: 10px; font-weight: 700; color: var(--g900); line-height: 1.2; margin-bottom: 2px; }
+  .t-feat-desc { font-size: 7.5px; color: var(--g400); line-height: 1.55; }
+  .t-feat-desc strong { color: var(--g600); font-weight: 600; }
+  .t-note { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--g100); font-family: 'IBM Plex Mono', monospace; font-size: 6.5px; color: var(--g400); line-height: 1.6; }
+  .t-note strong { color: var(--warm); font-weight: 700; }
+  .t-compare { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--g100); }
+  .t-cmp { padding: 16px 24px; display: flex; gap: 12px; align-items: start; }
+  .t-cmp:first-child { border-right: 1px solid var(--g100); }
+  .t-cmp-marker { width: 4px; border-radius: 2px; align-self: stretch; flex-shrink: 0; }
+  .t-cmp:first-child .t-cmp-marker { background: var(--blue-500); }
+  .t-cmp:last-child .t-cmp-marker { background: var(--warm); }
+  .t-cmp-overline { font-family: 'IBM Plex Mono', monospace; font-size: 6px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; margin-bottom: 2px; }
+  .t-cmp:first-child .t-cmp-overline { color: var(--blue-500); }
+  .t-cmp:last-child .t-cmp-overline { color: var(--warm); }
+  .t-cmp-name { font-size: 15px; font-weight: 800; letter-spacing: -0.01em; line-height: 1; margin-bottom: 4px; }
+  .t-cmp-desc { font-size: 7.5px; color: var(--g500); line-height: 1.55; }
+  .t-cmp-tag { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 5.5px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; padding: 2px 6px; margin-top: 5px; }
+  .t-cmp:first-child .t-cmp-tag { background: var(--blue-500); color: var(--white); }
+  .t-cmp:last-child .t-cmp-tag { background: var(--warm); color: var(--white); }
+
+  /* ═══ CATALOG ═══ */
+  .cat { height: 100%; display: grid; grid-template-rows: auto 1fr auto; }
+  .cat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue-500); z-index: 2; }
+  .cat-hdr { padding: 24px var(--pad) 0; display: flex; justify-content: space-between; align-items: center; }
+  .cat-body { padding: 0 var(--pad); overflow: hidden; }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid var(--g900); }
+  .sec-title { font-size: 14px; font-weight: 800; }
+  .sec-count { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--warm); font-weight: 600; }
+  .disp-section { margin-top: 14px; }
+  .disp-grid { display: grid; margin-top: 10px; border: 1px solid var(--g100); }
+  .disp-card { display: flex; flex-direction: column; align-items: center; padding: 10px 5px 8px; text-align: center; }
+  .disp-card + .disp-card { border-left: 1px solid var(--g100); }
+  .dc-steel { background: var(--g900); color: var(--white); }
+  .dc-steel + .dc-steel { border-left-color: var(--g700); }
+  .dc-thumb { width: 44px; height: 58px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+  .dc-art { font-family: 'IBM Plex Mono', monospace; font-size: 6.5px; font-weight: 600; }
+  .dc-name { font-size: 6px; margin-top: 1px; line-height: 1.3; }
+  .disp-card:not(.dc-steel) .dc-name { color: var(--g400); }
+  .dc-steel .dc-name { color: rgba(255,255,255,0.4); }
+  .dc-badge { font-family: 'IBM Plex Mono', monospace; font-size: 4.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; padding: 2px 5px; margin-top: 4px; }
+  .dc-badge--m { background: var(--blue-100); color: var(--blue-700); }
+  .dc-badge--s { background: var(--warm); color: var(--white); }
+  .dc-badge--st { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+  .ral-note { margin-top: 5px; padding: 4px 10px; font-size: 7px; color: var(--g500); border-left: 3px solid var(--warm); background: var(--warm-light); }
+  .ral-note strong { color: var(--g800); font-weight: 700; }
+  .spec-block { margin-top: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 7px; line-height: 1.4; }
+  thead th { text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 5.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--g400); padding: 5px 3px 4px 0; border-bottom: 1px solid var(--g200); white-space: nowrap; }
+  tbody td { padding: 3.5px 3px 3.5px 0; border-bottom: 1px solid var(--g100); color: var(--g500); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 6.5px; color: var(--g900); }
+  .td-m { font-weight: 700; color: var(--g800); }
+  .td-b { color: var(--blue-500); font-weight: 700; }
+  .td-d { color: var(--g300); }
+  .td-a { color: var(--warm); font-weight: 700; }
+  .td-y { color: var(--blue-500); font-weight: 700; }
+  .td-n { color: var(--g300); }
+  .td-st::after { content: 'STEEL'; font-family: 'IBM Plex Mono', monospace; font-size: 4px; letter-spacing: 0.08em; background: var(--g800); color: var(--white); padding: 1px 3px; font-weight: 600; margin-left: 3px; }
+  .b-div { margin: 10px 0; height: 1px; background: var(--g100); position: relative; }
+  .b-div::before { content: ''; position: absolute; left: 0; top: 0; width: 48px; height: 1px; background: var(--warm); }
+  .cons-grid { display: grid; margin-top: 8px; border: 1px solid var(--g100); }
+  .cons-card { display: flex; flex-direction: column; align-items: center; padding: 8px 6px; text-align: center; }
+  .cons-card + .cons-card { border-left: 1px solid var(--g100); }
+  .cc-thumb { width: 28px; height: 38px; display: flex; align-items: center; justify-content: center; margin-bottom: 4px; }
+  .cc-art { font-family: 'IBM Plex Mono', monospace; font-size: 6.5px; font-weight: 600; color: var(--g900); }
+  .cc-name { font-size: 6px; color: var(--g400); margin-top: 1px; }
+  .cat-policy { margin-top: 8px; display: grid; grid-template-columns: 32px 1fr; background: var(--blue-50); border: 1px solid var(--blue-100); }
+  .cat-policy-icon { display: flex; align-items: center; justify-content: center; background: var(--blue-500); }
+  .cat-policy-icon svg { width: 14px; height: 14px; fill: var(--white); }
+  .cat-policy-body { padding: 8px 12px; }
+  .cat-policy-title { font-size: 8.5px; font-weight: 700; color: var(--blue-900); margin-bottom: 1px; }
+  .cat-policy-text { font-size: 6.5px; color: var(--g500); line-height: 1.5; }
+  .cat-ftr { display: grid; grid-template-columns: 1fr auto; margin-top: auto; }
+  .cat-ftr-contact { padding: 14px var(--pad); border-top: 1px solid var(--g100); }
+  .cat-ftr-label { font-family: 'IBM Plex Mono', monospace; font-size: 5.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--g300); font-weight: 500; margin-bottom: 2px; }
+  .cat-ftr-info { font-size: 7px; color: var(--g400); line-height: 1.6; }
+  .cat-ftr-brand { background: var(--blue-900); padding: 14px 24px; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; min-width: 150px; }
+  .cat-ftr-brand-name { font-size: 12px; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; color: var(--white); }
+  .cat-ftr-brand-motto { font-family: 'IBM Plex Mono', monospace; font-size: 5px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     PAGE 1 — COVER
+     ═══════════════════════════════════ -->
+
+<div class="label">Стр. 1 · Обложка</div>
+
+<div class="page">
+  <div class="cover">
+    <div class="c-top">
+      <div class="c-logo">Merida</div>
+      <div class="c-system">Защищённая система подачи мыла-пены</div>
+    </div>
+    <div class="c-center">
+      <div class="c-products">
+        <!-- Harmony Click -->
+        <div class="c-product">
+          <svg viewBox="0 0 100 180" fill="none" style="width:85px;">
+            <rect x="15" y="6" width="70" height="150" rx="10" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+            <rect x="25" y="20" width="50" height="80" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+            <!-- Cartridge inside -->
+            <rect x="30" y="30" width="40" height="55" rx="4" fill="rgba(43,127,255,0.15)" stroke="var(--blue-400)" stroke-width="0.5" stroke-dasharray="3 2"/>
+            <!-- Nozzle -->
+            <rect x="38" y="105" width="24" height="12" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.4"/>
+            <circle cx="50" cy="111" r="3" fill="var(--blue-400)" opacity="0.6"/>
+            <!-- Foam drops -->
+            <circle cx="50" cy="130" r="4" fill="rgba(255,255,255,0.08)"/>
+            <circle cx="44" cy="136" r="2.5" fill="rgba(255,255,255,0.05)"/>
+            <circle cx="56" cy="134" r="3" fill="rgba(255,255,255,0.06)"/>
+            <text x="50" y="172" text-anchor="middle" fill="rgba(255,255,255,0.15)" font-size="5" font-family="IBM Plex Mono, monospace">ФОТО ПРОДУКТА</text>
+          </svg>
+          <div class="c-product-label">ABS-пластик</div>
+          <div class="c-product-name">Harmony</div>
+        </div>
+        <!-- Stella Click -->
+        <div class="c-product">
+          <svg viewBox="0 0 100 180" fill="none" style="width:85px;">
+            <rect x="15" y="6" width="70" height="150" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+            <line x1="20" y1="12" x2="28" y2="32" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <line x1="78" y1="8" x2="82" y2="22" stroke="rgba(255,255,255,0.04)" stroke-width="0.8"/>
+            <rect x="25" y="20" width="50" height="80" rx="5" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+            <rect x="30" y="30" width="40" height="55" rx="4" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5" stroke-dasharray="3 2"/>
+            <rect x="38" y="105" width="24" height="12" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
+            <circle cx="50" cy="111" r="3" fill="rgba(255,255,255,0.15)"/>
+            <text x="50" y="172" text-anchor="middle" fill="rgba(255,255,255,0.15)" font-size="5" font-family="IBM Plex Mono, monospace">ФОТО ПРОДУКТА</text>
+          </svg>
+          <div class="c-product-label">Нерж. сталь AISI 304</div>
+          <div class="c-product-name">Stella</div>
+        </div>
+      </div>
+      <div class="c-title-block">
+        <h1 class="c-title">Клик</h1>
+        <div class="c-sub-line1">Мыло-пена в герметичных картриджах. Замена одним щелчком.</div>
+        <div class="c-sub-line2">Два материала — под любой объект и бюджет.</div>
+      </div>
+    </div>
+    <div class="c-bottom">
+      <div class="c-fact"><div class="c-fact-val">800 мл</div><div class="c-fact-label">объём картриджа</div></div>
+      <div class="c-fact"><div class="c-fact-val">2 000</div><div class="c-fact-label">порций с одного картриджа</div></div>
+      <div class="c-fact"><div class="c-fact-val">2 типа</div><div class="c-fact-label">механика / сенсор</div></div>
+      <div class="c-fact"><div class="c-fact-val">pH</div><div class="c-fact-label">нейтральное, для чувств. кожи</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     PAGE 2 — TECHNICAL SPREAD
+     ═══════════════════════════════════ -->
+
+<div class="label">Стр. 2 · Устройство и преимущества</div>
+
+<div class="page" style="position:relative;">
+  <div class="tech">
+    <div class="t-hdr">
+      <div class="t-hdr-left"><div class="t-logo">Merida</div><div class="t-hdr-div"></div><div class="t-hdr-ctx">Клик · устройство</div></div>
+      <div class="ftr-num">2 / 4</div>
+    </div>
+    <div class="t-body">
+      <div class="t-diagram">
+        <svg viewBox="0 0 240 340" fill="none" style="width:215px;height:310px;">
+          <!-- Dispenser body -->
+          <rect x="55" y="20" width="130" height="230" rx="12" fill="#E8F0FC" stroke="#B3CAE6" stroke-width="1"/>
+          <!-- Window -->
+          <rect x="72" y="42" width="96" height="120" rx="7" fill="#F0F6FF" stroke="#B3CAE6" stroke-width="0.6"/>
+          <!-- Cartridge inside -->
+          <rect x="80" y="52" width="80" height="90" rx="6" fill="#DDE9FA" stroke="#0052CC" stroke-width="0.8" stroke-dasharray="4 2"/>
+          <!-- Cartridge label -->
+          <text x="120" y="100" text-anchor="middle" fill="#0052CC" font-size="7" font-weight="600" font-family="IBM Plex Mono, monospace" opacity="0.6">КАРТРИДЖ</text>
+          <text x="120" y="110" text-anchor="middle" fill="#0052CC" font-size="5" font-family="IBM Plex Mono, monospace" opacity="0.4">800 мл</text>
+          <!-- Click arrows showing snap-in -->
+          <path d="M76 92 L83 92" stroke="#E2582E" stroke-width="1.5" marker-end="none"/>
+          <path d="M164 92 L157 92" stroke="#E2582E" stroke-width="1.5"/>
+          <text x="72" y="88" fill="#E2582E" font-size="5" font-weight="700" font-family="IBM Plex Mono, monospace">КЛИК</text>
+          <text x="168" y="88" fill="#E2582E" font-size="5" font-weight="700" font-family="IBM Plex Mono, monospace">КЛИК</text>
+          <!-- Nozzle -->
+          <rect x="95" y="178" width="50" height="20" rx="4" fill="#C7D6EA"/>
+          <circle cx="120" cy="188" r="6" fill="#E8F0FC" stroke="#B3CAE6" stroke-width="0.5"/>
+          <!-- Foam output -->
+          <ellipse cx="120" cy="216" rx="16" ry="10" fill="#F0F6FF" stroke="#B3CAE6" stroke-width="0.5"/>
+          <ellipse cx="114" cy="228" rx="10" ry="7" fill="#F0F6FF" stroke="#B3CAE6" stroke-width="0.4" opacity="0.6"/>
+          <ellipse cx="128" cy="226" rx="8" ry="5" fill="#F0F6FF" stroke="#B3CAE6" stroke-width="0.3" opacity="0.4"/>
+          <!-- Lock -->
+          <rect x="173" y="150" width="14" height="18" rx="3" fill="#2B7FFF"/>
+          <rect x="176" y="144" width="8" height="8" rx="4" fill="none" stroke="#2B7FFF" stroke-width="1.2"/>
+          <!-- Sensor -->
+          <circle cx="120" cy="34" r="6" fill="#E2582E"/>
+          <circle cx="120" cy="34" r="10" fill="none" stroke="#E2582E" stroke-width="0.5" stroke-dasharray="2 1.5"/>
+
+          <!-- CALLOUTS -->
+          <!-- Sensor -->
+          <line x1="134" y1="34" x2="210" y2="24" stroke="#E2582E" stroke-width="0.4" stroke-dasharray="2 1.5"/><circle cx="210" cy="24" r="2.5" fill="#E2582E"/>
+          <rect x="214" y="15" width="24" height="18" rx="2" fill="white" stroke="#F5D0C0" stroke-width="0.6"/><text x="226" y="27" text-anchor="middle" fill="#E2582E" font-size="6" font-weight="600" font-family="IBM Plex Mono, monospace">ИК</text>
+          <!-- Cartridge -->
+          <line x1="162" y1="72" x2="212" y2="60" stroke="#0052CC" stroke-width="0.4" stroke-dasharray="2 1.5"/><circle cx="212" cy="60" r="2.5" fill="#0052CC"/>
+          <rect x="216" y="49" width="22" height="22" rx="2" fill="white" stroke="#DDE9FA" stroke-width="0.6"/><text x="227" y="61" text-anchor="middle" fill="#003D8F" font-size="5" font-weight="600" font-family="IBM Plex Mono, monospace">КЛИК</text><text x="227" y="67" text-anchor="middle" fill="#8A90A0" font-size="4" font-family="IBM Plex Mono, monospace">800 мл</text>
+          <!-- Window -->
+          <line x1="70" y1="75" x2="18" y2="65" stroke="#0052CC" stroke-width="0.4" stroke-dasharray="2 1.5"/><circle cx="18" cy="65" r="2.5" fill="#0052CC"/>
+          <rect x="2" y="55" width="30" height="20" rx="2" fill="white" stroke="#DDE9FA" stroke-width="0.6"/><text x="17" y="66" text-anchor="middle" fill="#003D8F" font-size="5" font-weight="600" font-family="IBM Plex Mono, monospace">ОКНО</text><text x="17" y="72" text-anchor="middle" fill="#8A90A0" font-size="4" font-family="IBM Plex Mono, monospace">контроль</text>
+          <!-- Lock -->
+          <line x1="187" y1="159" x2="215" y2="159" stroke="#0052CC" stroke-width="0.4" stroke-dasharray="2 1.5"/><circle cx="215" cy="159" r="2.5" fill="#0052CC"/>
+          <rect x="219" y="150" width="14" height="18" rx="2" fill="white" stroke="#DDE9FA" stroke-width="0.6"/><text x="226" y="162" text-anchor="middle" font-size="10">🔒</text>
+          <!-- Foam -->
+          <line x1="100" y1="222" x2="22" y2="260" stroke="#0052CC" stroke-width="0.4" stroke-dasharray="2 1.5"/><circle cx="22" cy="260" r="2.5" fill="#0052CC"/>
+          <rect x="2" y="251" width="42" height="18" rx="2" fill="white" stroke="#DDE9FA" stroke-width="0.6"/><text x="23" y="263" text-anchor="middle" fill="#003D8F" font-size="5.5" font-weight="600" font-family="IBM Plex Mono, monospace">ПЕНА</text>
+
+          <!-- Model label -->
+          <rect x="52" y="300" width="136" height="22" rx="4" fill="#001B44"/>
+          <text x="120" y="314" text-anchor="middle" fill="white" font-size="7.5" font-weight="600" font-family="IBM Plex Mono, monospace" letter-spacing="0.12em">HARMONY КЛИК · SENSOR</text>
+        </svg>
+      </div>
+
+      <div class="t-info">
+        <div class="t-info-eyebrow">Анатомия диспенсера</div>
+        <div class="t-info-title">Один щелчок —<br>чистая замена</div>
+        <div class="t-info-sub">Сенсорная модель Harmony Клик</div>
+        <div class="t-list">
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--w"><svg viewBox="0 0 24 24" fill="none" stroke="#E2582E" stroke-width="1.5"><path d="M12 2v4m0 12v4m-10-10h4m12 0h4"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="t-feat-name">Система «Клик»</div><div class="t-feat-desc">Картридж вставляется одним движением. <strong>Никакого долива, никаких пролитий.</strong> Замена за 5 секунд.</div></div></div>
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--b"><svg viewBox="0 0 24 24" fill="none" stroke="#0052CC" stroke-width="1.5"><circle cx="12" cy="7" r="3"/><path d="M5 22c0-4.4 3.1-8 7-8s7 3.6 7 8"/></svg></div><div><div class="t-feat-name">Пена вместо жидкости</div><div class="t-feat-desc"><strong>Расход в 2,5 раза ниже</strong>, чем у жидкого мыла. Пена лучше распределяется по рукам.</div></div></div>
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--w"><svg viewBox="0 0 24 24" fill="none" stroke="#E2582E" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2m-10-10h2m16 0h2"/></svg></div><div><div class="t-feat-name">ИК-сенсор</div><div class="t-feat-desc">Бесконтактная подача. <strong>Ноль касаний корпуса</strong> — максимальная гигиена.</div></div></div>
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--b"><svg viewBox="0 0 24 24" fill="none" stroke="#0052CC" stroke-width="1.5"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><div><div class="t-feat-name">Замок</div><div class="t-feat-desc"><strong>Картридж невозможно извлечь</strong> без ключа. Закрытая система подачи.</div></div></div>
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--b"><svg viewBox="0 0 24 24" fill="none" stroke="#0052CC" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div><div><div class="t-feat-name">pH-нейтральное</div><div class="t-feat-desc">Подходит для чувствительной кожи. Сертифицировано.</div></div></div>
+        </div>
+        <div class="t-note">Сенсорная модель — батареи 4 × LR6 (AA), <strong>не входят в комплект</strong>.</div>
+      </div>
+    </div>
+
+    <div class="t-compare">
+      <div class="t-cmp"><div class="t-cmp-marker"></div><div><div class="t-cmp-overline">ABS-пластик · механика + сенсор</div><div class="t-cmp-name">Harmony</div><div class="t-cmp-desc">Белый / чёрный. Механика и сенсор.</div><div class="t-cmp-tag">Диспенсерная политика</div></div></div>
+      <div class="t-cmp"><div class="t-cmp-marker"></div><div><div class="t-cmp-overline">Нерж. сталь · сенсор</div><div class="t-cmp-name">Stella</div><div class="t-cmp-desc">Полир. / матовый / антифингер. Любой RAL.</div><div class="t-cmp-tag">Любой RAL под заказ</div></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     PAGE 3 — BANNER PLACEHOLDER
+     ═══════════════════════════════════ -->
+
+<div class="label">Стр. 3 · Баннер</div>
+
+<div class="page">
+  <div style="height:100%;display:grid;grid-template-rows:auto 1fr auto;">
+    <div style="padding:24px 40px 0;display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;align-items:baseline;gap:10px;"><div class="t-logo">Merida</div><div class="t-hdr-div"></div><div class="t-hdr-ctx">Клик</div></div>
+      <div class="ftr-num">3 / 4</div>
+    </div>
+    <div style="display:grid;grid-template-rows:3fr 2fr;min-height:0;">
+      <div style="background:var(--g100);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:20px 40px 0;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 18px,rgba(0,0,0,0.025) 18px,rgba(0,0,0,0.025) 36px);pointer-events:none;"></div>
+        <div style="position:absolute;width:60px;height:60px;border:1px solid var(--g300);border-radius:50%;"></div>
+        <div style="position:absolute;width:1px;height:80px;background:var(--g300);"></div>
+        <div style="position:absolute;width:80px;height:1px;background:var(--g300);"></div>
+        <div style="position:relative;z-index:1;text-align:center;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--warm);font-weight:600;margin-bottom:8px;">Место для фото</div>
+          <div style="font-size:22px;font-weight:800;letter-spacing:-0.02em;color:var(--g500);line-height:1.2;">Акцент с фото<br>главной боли / преимущества</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:var(--g400);margin-top:10px;">hero image · full bleed · 210 × ~170 mm</div>
+        </div>
+      </div>
+      <div style="padding:24px 40px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><div style="width:28px;height:2px;background:var(--warm);flex-shrink:0;"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--warm);font-weight:600;">Ключевое сообщение</div></div>
+        <div style="display:flex;flex-direction:column;gap:8px;"><div style="height:24px;background:var(--g100);border-radius:3px;width:85%;"></div><div style="height:24px;background:var(--g100);border-radius:3px;width:70%;"></div></div>
+        <div style="margin-top:18px;display:flex;flex-direction:column;gap:6px;"><div style="height:10px;background:var(--g50);border-radius:2px;width:100%;"></div><div style="height:10px;background:var(--g50);border-radius:2px;width:95%;"></div><div style="height:10px;background:var(--g50);border-radius:2px;width:60%;"></div></div>
+        <div style="margin-top:20px;padding-top:14px;border-top:1px solid var(--g100);font-family:'IBM Plex Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--g300);">↑ Заглушка — заменить на финальный контент</div>
+      </div>
+    </div>
+    <div style="padding:0 40px 20px;display:flex;justify-content:space-between;align-items:flex-end;">
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:6px;letter-spacing:0.16em;text-transform:uppercase;color:var(--g300);font-weight:500;margin-bottom:2px;">Merida Клик</div><div style="font-size:7px;color:var(--g400);">Закрытая система подачи мыла-пены</div></div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:0.28em;text-transform:uppercase;color:var(--g200);">Merida</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     PAGE 4 — CATALOG
+     ═══════════════════════════════════ -->
+
+<div class="label">Стр. 4 · Каталог</div>
+
+<div class="page" style="position:relative;">
+  <div class="cat">
+    <div class="cat-hdr">
+      <div class="t-hdr-left"><div class="t-logo">Merida</div><div class="t-hdr-div"></div><div class="t-hdr-ctx">Клик · каталог</div></div>
+      <div class="ftr-num">4 / 4</div>
+    </div>
+    <div class="cat-body">
+
+      <div class="disp-section">
+        <div class="sec-head"><div class="sec-title">Диспенсеры</div><div class="sec-count">5 арт.</div></div>
+        <div class="disp-grid" style="grid-template-columns:repeat(5,1fr);">
+          <div class="disp-card"><div class="dc-thumb"><svg viewBox="0 0 44 58" fill="none"><rect x="6" y="3" width="32" height="46" rx="5" fill="#E0EEFF" stroke="#B3CAE6" stroke-width="0.5"/><rect x="11" y="12" width="22" height="24" rx="3" fill="#F0F6FF"/><rect x="14" y="15" width="16" height="16" rx="2" fill="#DDE9FA" stroke="#0052CC" stroke-width="0.3" stroke-dasharray="2 1"/><rect x="16" y="36" width="12" height="4" rx="1" fill="#D0DCF0"/></svg></div><div class="dc-art">DHB101.C</div><div class="dc-name">Harmony · белый</div><div class="dc-badge dc-badge--m">механика</div></div>
+          <div class="disp-card"><div class="dc-thumb"><svg viewBox="0 0 44 58" fill="none"><rect x="6" y="3" width="32" height="46" rx="5" fill="#2D3142" stroke="#1A1D2B" stroke-width="0.5"/><rect x="11" y="12" width="22" height="24" rx="3" fill="#3A3E4E"/><rect x="14" y="15" width="16" height="16" rx="2" fill="#2D3142" stroke="#6AA3FF" stroke-width="0.3" stroke-dasharray="2 1"/><rect x="16" y="36" width="12" height="4" rx="1" fill="#3A3E4E"/></svg></div><div class="dc-art">DHC101.C</div><div class="dc-name">Harmony · чёрный</div><div class="dc-badge dc-badge--m">механика</div></div>
+          <div class="disp-card"><div class="dc-thumb"><svg viewBox="0 0 44 58" fill="none"><rect x="6" y="3" width="32" height="46" rx="5" fill="#E0EEFF" stroke="#B3CAE6" stroke-width="0.5"/><rect x="11" y="12" width="22" height="24" rx="3" fill="#F0F6FF"/><rect x="14" y="15" width="16" height="16" rx="2" fill="#DDE9FA" stroke="#E2582E" stroke-width="0.3" stroke-dasharray="2 1"/><circle cx="22" cy="9" r="2" fill="#E2582E"/><rect x="16" y="36" width="12" height="4" rx="1" fill="#D0DCF0"/></svg></div><div class="dc-art">—</div><div class="dc-name">Harmony · сенсор</div><div class="dc-badge dc-badge--s">сенсор</div></div>
+          <div class="disp-card dc-steel"><div class="dc-thumb"><svg viewBox="0 0 44 58" fill="none"><rect x="6" y="3" width="32" height="46" rx="5" fill="#4B5060" stroke="#6B7280" stroke-width="0.5"/><rect x="11" y="12" width="22" height="24" rx="3" fill="#5C6478"/><rect x="14" y="15" width="16" height="16" rx="2" fill="#4B5060" stroke="#8A90A0" stroke-width="0.3" stroke-dasharray="2 1"/><circle cx="22" cy="9" r="2" fill="rgba(255,255,255,0.3)"/><rect x="16" y="36" width="12" height="4" rx="1" fill="#5C6478"/><line x1="12" y1="6" x2="15" y2="14" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/></svg></div><div class="dc-art">—</div><div class="dc-name">Stella · полир.</div><div class="dc-badge dc-badge--st">AISI 304</div></div>
+          <div class="disp-card dc-steel"><div class="dc-thumb"><svg viewBox="0 0 44 58" fill="none"><rect x="6" y="3" width="32" height="46" rx="5" fill="#3A3E4E" stroke="#4B5060" stroke-width="0.5"/><rect x="11" y="12" width="22" height="24" rx="3" fill="#454A5A"/><rect x="14" y="15" width="16" height="16" rx="2" fill="#3A3E4E" stroke="#8A90A0" stroke-width="0.3" stroke-dasharray="2 1"/><circle cx="22" cy="9" r="2" fill="rgba(255,255,255,0.25)"/><rect x="16" y="36" width="12" height="4" rx="1" fill="#454A5A"/></svg></div><div class="dc-art">—</div><div class="dc-name">Stella · мат./антиф.</div><div class="dc-badge dc-badge--st">AISI 304</div></div>
+        </div>
+        <div class="ral-note"><strong>Stella — под заказ:</strong> порошковое покрытие в любом цвете RAL</div>
+        <div class="spec-block">
+          <table>
+            <thead><tr><th>Артикул</th><th>Модель</th><th>Подача</th><th>Материал</th><th>Цвет</th><th>Батарея</th><th>Гарант.</th><th>Дисп. пол.</th></tr></thead>
+            <tbody>
+              <tr><td>DHB101.C</td><td class="td-m">Harmony</td><td>механика</td><td>ABS</td><td>белый</td><td class="td-d">—</td><td>12 мес.</td><td class="td-y">да</td></tr>
+              <tr><td>DHC101.C</td><td class="td-m">Harmony</td><td>механика</td><td>ABS</td><td>чёрный</td><td class="td-d">—</td><td>12 мес.</td><td class="td-y">да</td></tr>
+              <tr><td>—</td><td class="td-m">Harmony</td><td class="td-a">сенсор</td><td>ABS</td><td>белый</td><td>4 × LR6</td><td>12 мес.</td><td class="td-y">да</td></tr>
+              <tr><td>—</td><td class="td-m"><span class="td-st">Stella</span></td><td class="td-a">сенсор</td><td>AISI 304</td><td>полир.</td><td>4 × LR6</td><td>12 мес.</td><td class="td-n">—</td></tr>
+              <tr><td>—</td><td class="td-m"><span class="td-st">Stella</span></td><td class="td-a">сенсор</td><td>AISI 304</td><td>мат.</td><td>4 × LR6</td><td>12 мес.</td><td class="td-n">—</td></tr>
+              <tr><td>—</td><td class="td-m"><span class="td-st">Stella</span></td><td class="td-a">сенсор</td><td>AISI 304</td><td>антифингер</td><td>4 × LR6</td><td>12 мес.</td><td class="td-n">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="b-div"></div>
+
+      <div>
+        <div class="sec-head"><div class="sec-title">Мыло-пена в картриджах</div><div class="sec-count">1 арт.</div></div>
+        <div class="cons-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;">
+          <div class="cons-card" style="grid-column:span 4;flex-direction:row;gap:16px;padding:12px 16px;justify-content:flex-start;">
+            <div class="cc-thumb" style="width:36px;height:48px;flex-shrink:0;"><svg viewBox="0 0 36 48" fill="none"><rect x="4" y="4" width="28" height="38" rx="5" fill="#E0EEFF" stroke="#B3CAE6" stroke-width="0.5"/><rect x="8" y="8" width="20" height="20" rx="3" fill="#DDE9FA"/><rect x="12" y="30" width="12" height="6" rx="2" fill="#C7D6EA"/><circle cx="18" cy="34" r="2" fill="#E8F0FC"/></svg></div>
+            <div style="text-align:left;">
+              <div class="cc-art">LFM101</div>
+              <div class="cc-name" style="font-size:7px;color:var(--g600);">Мыло-пена Merida Harmony Клик Премиум</div>
+              <div style="font-size:6px;color:var(--g400);margin-top:2px;">pH-нейтральное · для чувствительной кожи · прозрачное · 800 мл · 2 000 порций · 6 шт./кор.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat-policy">
+        <div class="cat-policy-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+        <div class="cat-policy-body"><div class="cat-policy-title">Диспенсерная политика</div><div class="cat-policy-text">Harmony Клик (DHB101.C, DHC101.C, сенсор) участвует в программе. Подробности — у менеджера Merida.</div></div>
+      </div>
+
+    </div>
+
+    <div class="cat-ftr">
+      <div class="cat-ftr-contact"><div class="cat-ftr-label">Контакты дистрибьютора</div><div class="cat-ftr-info">тел. +7 (___) ___-__-__ · email@example.com · www.merida.ru</div></div>
+      <div class="cat-ftr-brand"><div class="cat-ftr-brand-name">Merida</div><div class="cat-ftr-brand-motto">Business starts with comfort</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){const P=210*3.7795275591,M=16;function s(){const pp=document.querySelectorAll('.page'),ll=document.querySelectorAll('.label');if(window.innerWidth<768){const w=window.innerWidth-M*2,sc=w/P;pp.forEach(p=>{p.style.transform=`scale(${sc})`;p.style.transformOrigin='top center';p.style.marginBottom=`-${(1-sc)*p.offsetHeight}px`;});ll.forEach(l=>l.style.width=`${w}px`);document.body.style.padding=`40px ${M}px`;document.body.style.gap='40px';}else{pp.forEach(p=>{p.style.transform='';p.style.transformOrigin='';p.style.marginBottom='';});ll.forEach(l=>l.style.width='');document.body.style.padding='';document.body.style.gap='';}}s();window.addEventListener('resize',s);})();
+</script>
+</body>
+</html>

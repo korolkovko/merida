@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERIDA АРОМА</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-900: #001B44;
+    --blue-800: #002D6B;
+    --blue-700: #003D8F;
+    --blue-500: #0052CC;
+    --blue-400: #2B7FFF;
+    --blue-300: #6AA3FF;
+    --blue-100: #DDE9FA;
+    --blue-50:  #F0F5FF;
+
+    --warm: #E2582E;
+    --warm-light: #FFF2ED;
+
+    --white: #FAFBFD;
+    --g50: #F4F5F7;
+    --g100: #EAECF0;
+    --g200: #D5D8E0;
+    --g300: #B0B5C3;
+    --g400: #8A90A0;
+    --g500: #6B7280;
+    --g600: #4B5060;
+    --g700: #353845;
+    --g800: #23262F;
+    --g900: #16181D;
+    --black: #0C0D10;
+
+    --page-w: 210mm;
+    --page-h: 297mm;
+    --pad: 40px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #C8CBD4;
+    font-family: 'Manrope', -apple-system, sans-serif;
+    color: var(--g900);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    padding: 48px 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--g400); margin-bottom: -36px; font-weight: 500; }
+  .page { width: var(--page-w); height: var(--page-h); background: var(--white); overflow: hidden; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 16px 48px rgba(0,0,0,0.12); }
+  .ftr-num { font-family: 'IBM Plex Mono', monospace; font-size: 7px; color: var(--g300); font-weight: 500; }
+
+  /* ═══ COVER ═══ */
+  .cover { height: 100%; display: grid; grid-template-rows: auto 1fr auto; background: var(--blue-900); color: var(--white); }
+  .c-top { padding: 28px var(--pad); display: flex; justify-content: space-between; align-items: center; }
+  .c-logo { font-size: 14px; font-weight: 800; letter-spacing: 0.35em; text-transform: uppercase; }
+  .c-system { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); font-weight: 500; }
+  .c-center { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 var(--pad); }
+  .c-products { display: flex; align-items: flex-end; justify-content: center; gap: 56px; margin-bottom: 44px; }
+  .c-product { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .c-product-label { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; }
+  .c-product:first-child .c-product-label { color: var(--blue-300); }
+  .c-product:last-child .c-product-label { color: var(--warm); }
+  .c-product-name { font-size: 16px; font-weight: 700; letter-spacing: 0.02em; color: rgba(255,255,255,0.7); }
+  .c-title-block { text-align: center; }
+  .c-title { font-size: 72px; font-weight: 800; letter-spacing: -0.05em; line-height: 0.9; color: var(--white); margin-bottom: 18px; }
+  .c-sub-line1 { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.4); line-height: 1.6; }
+  .c-sub-line2 { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7); line-height: 1.6; margin-top: 4px; letter-spacing: 0.01em; white-space: nowrap; }
+  .c-bottom { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,0.08); }
+  .c-fact { padding: 16px 18px; position: relative; }
+  .c-fact + .c-fact::before { content: ''; position: absolute; left: 0; top: 12px; bottom: 12px; width: 1px; background: rgba(255,255,255,0.08); }
+  .c-fact-val { font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 700; color: var(--warm); line-height: 1; margin-bottom: 3px; }
+  .c-fact-label { font-size: 7.5px; color: rgba(255,255,255,0.7); font-weight: 500; line-height: 1.4; }
+
+  /* ═══ TECH ═══ */
+  .tech { height: 100%; display: grid; grid-template-rows: auto 1fr auto; }
+  .tech::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--blue-500) 50%, var(--warm) 50%); z-index: 2; }
+  .t-hdr { padding: 24px var(--pad) 0; display: flex; justify-content: space-between; align-items: center; }
+  .t-hdr-left { display: flex; align-items: baseline; gap: 10px; }
+  .t-logo { font-size: 12px; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; color: var(--blue-800); }
+  .t-hdr-div { width: 1px; height: 11px; background: var(--g200); }
+  .t-hdr-ctx { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--g400); font-weight: 500; }
+  .t-body { display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+  .t-diagram { background: var(--g50); display: flex; align-items: center; justify-content: center; padding: 20px; border-right: 1px solid var(--g100); }
+  .t-info { padding: 24px 28px 16px; display: flex; flex-direction: column; }
+  .t-info-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm); font-weight: 600; margin-bottom: 8px; }
+  .t-info-title { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; color: var(--g900); }
+  .t-info-sub { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--g400); font-weight: 500; margin-top: 6px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--g100); }
+  .t-list { flex: 1; display: flex; flex-direction: column; }
+  .t-feat { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; padding: 9px 0; border-bottom: 1px solid var(--g100); }
+  .t-feat:last-child { border-bottom: none; }
+  .t-feat-icon { width: 30px; height: 30px; border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+  .t-feat-icon--b { background: var(--blue-50); }
+  .t-feat-icon--w { background: var(--warm-light); }
+  .t-feat-icon svg { width: 15px; height: 15px; }
+  .t-feat-name { font-size: 10px; font-weight: 700; color: var(--g900); line-height: 1.2; margin-bottom: 2px; }
+  .t-feat-desc { font-size: 7.5px; color: var(--g400); line-height: 1.55; }
+  .t-feat-desc strong { color: var(--g600); font-weight: 600; }
+  .t-note { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--g100); font-family: 'IBM Plex Mono', monospace; font-size: 6.5px; color: var(--g400); line-height: 1.6; }
+  .t-note strong { color: var(--warm); font-weight: 700; }
+  .t-compare { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--g100); }
+  .t-cmp { padding: 16px 24px; display: flex; gap: 12px; align-items: start; }
+  .t-cmp:first-child { border-right: 1px solid var(--g100); }
+  .t-cmp-marker { width: 4px; border-radius: 2px; align-self: stretch; flex-shrink: 0; }
+  .t-cmp:first-child .t-cmp-marker { background: var(--blue-500); }
+  .t-cmp:last-child .t-cmp-marker { background: var(--warm); }
+  .t-cmp-overline { font-family: 'IBM Plex Mono', monospace; font-size: 6px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; margin-bottom: 2px; }
+  .t-cmp:first-child .t-cmp-overline { color: var(--blue-500); }
+  .t-cmp:last-child .t-cmp-overline { color: var(--warm); }
+  .t-cmp-name { font-size: 15px; font-weight: 800; letter-spacing: -0.01em; line-height: 1; margin-bottom: 4px; }
+  .t-cmp-desc { font-size: 7.5px; color: var(--g500); line-height: 1.55; }
+  .t-cmp-tag { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 5.5px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; padding: 2px 6px; margin-top: 5px; }
+  .t-cmp:first-child .t-cmp-tag { background: var(--blue-500); color: var(--white); }
+  .t-cmp:last-child .t-cmp-tag { background: var(--warm); color: var(--white); }
+
+  /* ═══ CATALOG ═══ */
+  .cat { height: 100%; display: grid; grid-template-rows: auto 1fr auto; }
+  .cat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue-500); z-index: 2; }
+  .cat-hdr { padding: 24px var(--pad) 0; display: flex; justify-content: space-between; align-items: center; }
+  .cat-body { padding: 0 var(--pad); overflow: hidden; }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid var(--g900); }
+  .sec-title { font-size: 14px; font-weight: 800; }
+  .sec-count { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--warm); font-weight: 600; }
+  .disp-section { margin-top: 14px; }
+  .disp-grid { display: grid; margin-top: 10px; border: 1px solid var(--g100); }
+  .disp-card { display: flex; flex-direction: column; align-items: center; padding: 10px 5px 8px; text-align: center; }
+  .disp-card + .disp-card { border-left: 1px solid var(--g100); }
+  .dc-steel { background: var(--g900); color: var(--white); }
+  .dc-steel + .dc-steel { border-left-color: var(--g700); }
+  .dc-thumb { width: 44px; height: 58px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+  .dc-art { font-family: 'IBM Plex Mono', monospace; font-size: 6.5px; font-weight: 600; }
+  .dc-name { font-size: 6px; margin-top: 1px; line-height: 1.3; }
+  .disp-card:not(.dc-steel) .dc-name { color: var(--g400); }
+  .dc-steel .dc-name { color: rgba(255,255,255,0.4); }
+  .dc-badge { font-family: 'IBM Plex Mono', monospace; font-size: 4.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; padding: 2px 5px; margin-top: 4px; }
+  .dc-badge--lcd { background: var(--blue-100); color: var(--blue-700); }
+  .dc-badge--st { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+  .ral-note { margin-top: 5px; padding: 4px 10px; font-size: 7px; color: var(--g500); border-left: 3px solid var(--warm); background: var(--warm-light); }
+  .ral-note strong { color: var(--g800); font-weight: 700; }
+  .spec-block { margin-top: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 7px; line-height: 1.4; }
+  thead th { text-align: left; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 5.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--g400); padding: 5px 3px 4px 0; border-bottom: 1px solid var(--g200); white-space: nowrap; }
+  tbody td { padding: 3.5px 3px 3.5px 0; border-bottom: 1px solid var(--g100); color: var(--g500); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 6.5px; color: var(--g900); }
+  .td-m { font-weight: 700; color: var(--g800); }
+  .td-b { color: var(--blue-500); font-weight: 700; }
+  .td-d { color: var(--g300); }
+  .td-a { color: var(--warm); font-weight: 700; }
+  .td-st::after { content: 'STEEL'; font-family: 'IBM Plex Mono', monospace; font-size: 4px; letter-spacing: 0.08em; background: var(--g800); color: var(--white); padding: 1px 3px; font-weight: 600; margin-left: 3px; }
+  .b-div { margin: 10px 0; height: 1px; background: var(--g100); position: relative; }
+  .b-div::before { content: ''; position: absolute; left: 0; top: 0; width: 48px; height: 1px; background: var(--warm); }
+  .cons-card { display: flex; flex-direction: column; align-items: center; padding: 8px 6px; text-align: center; }
+  .cc-art { font-family: 'IBM Plex Mono', monospace; font-size: 6.5px; font-weight: 600; color: var(--g900); }
+  .cc-name { font-size: 6px; color: var(--g400); margin-top: 1px; }
+  .cat-policy { margin-top: 8px; display: grid; grid-template-columns: 32px 1fr; background: var(--blue-50); border: 1px solid var(--blue-100); }
+  .cat-policy-icon { display: flex; align-items: center; justify-content: center; background: var(--blue-500); }
+  .cat-policy-icon svg { width: 14px; height: 14px; fill: var(--white); }
+  .cat-policy-body { padding: 8px 12px; }
+  .cat-policy-title { font-size: 8.5px; font-weight: 700; color: var(--blue-900); margin-bottom: 1px; }
+  .cat-policy-text { font-size: 6.5px; color: var(--g500); line-height: 1.5; }
+  .cat-ftr { display: grid; grid-template-columns: 1fr auto; margin-top: auto; }
+  .cat-ftr-contact { padding: 14px var(--pad); border-top: 1px solid var(--g100); }
+  .cat-ftr-label { font-family: 'IBM Plex Mono', monospace; font-size: 5.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--g300); font-weight: 500; margin-bottom: 2px; }
+  .cat-ftr-info { font-size: 7px; color: var(--g400); line-height: 1.6; }
+  .cat-ftr-brand { background: var(--blue-900); padding: 14px 24px; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; min-width: 150px; }
+  .cat-ftr-brand-name { font-size: 12px; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; color: var(--white); }
+  .cat-ftr-brand-motto { font-family: 'IBM Plex Mono', monospace; font-size: 5px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     PAGE 1 — COVER
+     ═══════════════════════════════════ -->
+
+<div class="label">Стр. 1 · Обложка</div>
+
+<div class="page">
+  <div class="cover">
+    <div class="c-top">
+      <div class="c-logo">Merida</div>
+      <div class="c-system">Автоматическое освежение воздуха</div>
+    </div>
+    <div class="c-center">
+      <div class="c-products">
+        <!-- Harmony Aroma -->
+        <div class="c-product">
+          <svg viewBox="0 0 80 160" fill="none" style="width:68px;">
+            <!-- Compact body -->
+            <rect x="10" y="8" width="60" height="120" rx="8" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+            <!-- LCD screen -->
+            <rect x="18" y="18" width="44" height="20" rx="3" fill="rgba(43,127,255,0.2)" stroke="var(--blue-400)" stroke-width="0.5"/>
+            <text x="40" y="31" text-anchor="middle" fill="var(--blue-300)" font-size="7" font-weight="600" font-family="IBM Plex Mono, monospace">LCD</text>
+            <!-- Aerosol chamber -->
+            <rect x="20" y="46" width="40" height="60" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+            <!-- Aerosol can inside -->
+            <rect x="26" y="52" width="28" height="44" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="0.4"/>
+            <!-- Spray nozzle top -->
+            <rect x="34" y="110" width="12" height="8" rx="2" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.4"/>
+            <!-- Spray particles -->
+            <circle cx="40" cy="126" r="2" fill="rgba(255,255,255,0.08)"/>
+            <circle cx="35" cy="130" r="1.5" fill="rgba(255,255,255,0.05)"/>
+            <circle cx="45" cy="129" r="1.5" fill="rgba(255,255,255,0.06)"/>
+            <circle cx="38" cy="134" r="1" fill="rgba(255,255,255,0.04)"/>
+            <circle cx="43" cy="133" r="1.2" fill="rgba(255,255,255,0.04)"/>
+            <text x="40" y="152" text-anchor="middle" fill="rgba(255,255,255,0.15)" font-size="5" font-family="IBM Plex Mono, monospace">ФОТО</text>
+          </svg>
+          <div class="c-product-label">ABS-пластик · LCD</div>
+          <div class="c-product-name">Harmony</div>
+        </div>
+        <!-- Stella Aroma -->
+        <div class="c-product">
+          <svg viewBox="0 0 80 160" fill="none" style="width:68px;">
+            <rect x="10" y="8" width="60" height="120" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+            <line x1="14" y1="14" x2="22" y2="30" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
+            <line x1="65" y1="10" x2="68" y2="22" stroke="rgba(255,255,255,0.04)" stroke-width="0.6"/>
+            <rect x="18" y="18" width="44" height="20" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+            <text x="40" y="31" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-size="7" font-weight="600" font-family="IBM Plex Mono, monospace">LCD</text>
+            <rect x="20" y="46" width="40" height="60" rx="5" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="0.4"/>
+            <rect x="34" y="110" width="12" height="8" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
+            <text x="40" y="152" text-anchor="middle" fill="rgba(255,255,255,0.15)" font-size="5" font-family="IBM Plex Mono, monospace">ФОТО</text>
+          </svg>
+          <div class="c-product-label">Нерж. сталь AISI 304</div>
+          <div class="c-product-name">Stella</div>
+        </div>
+      </div>
+      <div class="c-title-block">
+        <h1 class="c-title">Арома</h1>
+        <div class="c-sub-line1">Программируемый освежитель воздуха с LCD-дисплеем.</div>
+        <div class="c-sub-line2">Задайте интервал — система работает сама.</div>
+      </div>
+    </div>
+    <div class="c-bottom">
+      <div class="c-fact"><div class="c-fact-val">3 000</div><div class="c-fact-label">порций с одного баллона</div></div>
+      <div class="c-fact"><div class="c-fact-val">LCD</div><div class="c-fact-label">дисплей с настройкой интервала</div></div>
+      <div class="c-fact"><div class="c-fact-val">1–30</div><div class="c-fact-label">минут — диапазон интервала</div></div>
+      <div class="c-fact"><div class="c-fact-val">270 мл</div><div class="c-fact-label">объём аэрозоля</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     PAGE 2 — TECHNICAL SPREAD
+     ═══════════════════════════════════ -->
+
+<div class="label">Стр. 2 · Устройство и преимущества</div>
+
+<div class="page" style="position:relative;">
+  <div class="tech">
+    <div class="t-hdr">
+      <div class="t-hdr-left"><div class="t-logo">Merida</div><div class="t-hdr-div"></div><div class="t-hdr-ctx">Арома · устройство</div></div>
+      <div class="ftr-num">2 / 4</div>
+    </div>
+    <div class="t-body">
+      <div class="t-diagram">
+        <svg viewBox="0 0 220 340" fill="none" style="width:200px;height:310px;">
+          <!-- Compact dispenser body -->
+          <rect x="45" y="20" width="130" height="240" rx="12" fill="#E8F0FC" stroke="#B3CAE6" stroke-width="1"/>
+
+          <!-- LCD screen -->
+          <rect x="60" y="36" width="100" height="48" rx="6" fill="#DDE9FA" stroke="#0052CC" stroke-width="0.8"/>
+          <!-- LCD content -->
+          <text x="110" y="55" text-anchor="middle" fill="#0052CC" font-size="11" font-weight="700" font-family="IBM Plex Mono, monospace">15 min</text>
+          <text x="110" y="68" text-anchor="middle" fill="#0052CC" font-size="6" font-family="IBM Plex Mono, monospace" opacity="0.5">▶ AUTO</text>
+          <!-- Battery indicator -->
+          <rect x="145" y="42" width="10" height="5" rx="1" fill="none" stroke="#0052CC" stroke-width="0.5" opacity="0.4"/>
+          <rect x="146" y="43" width="6" height="3" rx="0.5" fill="#0052CC" opacity="0.3"/>
+
+          <!-- Aerosol chamber -->
+          <rect x="62" y="100" width="96" height="120" rx="8" fill="#F0F6FF" stroke="#B3CAE6" stroke-width="0.6"/>
+
+          <!-- Aerosol can -->
+          <rect x="78" y="112" width="64" height="92" rx="6" fill="#E8F0FC" stroke="#B3CAE6" stroke-width="0.5"/>
+          <text x="110" y="155" text-anchor="middle" fill="#B3CAE6" font-size="6" font-weight="500" font-family="IBM Plex Mono, monospace">АЭРОЗОЛЬ</text>
+          <text x="110" y="165" text-anchor="middle" fill="#B3CAE6" font-size="5" font-family="IBM Plex Mono, monospace">270 мл</text>
+
+          <!-- Nozzle top -->
+          <rect x="95" y="104" width="30" height="12" rx="3" fill="#C7D6EA"/>
+          <circle cx="110" cy="110" r="4" fill="#E8F0FC" stroke="#B3CAE6" stroke-width="0.4"/>
+
+          <!-- Spray mist -->
+          <circle cx="110" cy="270" r="8" fill="#F0F6FF" stroke="#B3CAE6" stroke-width="0.4"/>
+          <circle cx="102" cy="278" r="5" fill="#F0F6FF" stroke="#B3CAE6" stroke-width="0.3" opacity="0.6"/>
+          <circle cx="118" cy="276" r="6" fill="#F0F6FF" stroke="#B3CAE6" stroke-width="0.3" opacity="0.5"/>
+          <circle cx="106" cy="285" r="3" fill="#F0F6FF" opacity="0.4"/>
+          <circle cx="115" cy="284" r="4" fill="#F0F6FF" opacity="0.3"/>
+
+          <!-- CALLOUTS -->
+          <!-- LCD -->
+          <line x1="162" y1="55" x2="200" y2="40" stroke="#0052CC" stroke-width="0.4" stroke-dasharray="2 1.5"/><circle cx="200" cy="40" r="2.5" fill="#0052CC"/>
+          <rect x="204" y="30" width="14" height="20" rx="2" fill="white" stroke="#DDE9FA" stroke-width="0.6"/><text x="211" y="42" text-anchor="middle" fill="#003D8F" font-size="5" font-weight="600" font-family="IBM Plex Mono, monospace">LCD</text>
+
+          <!-- Interval -->
+          <line x1="162" y1="68" x2="200" y2="68" stroke="#E2582E" stroke-width="0.4" stroke-dasharray="2 1.5"/><circle cx="200" cy="68" r="2.5" fill="#E2582E"/>
+          <rect x="204" y="56" width="14" height="24" rx="2" fill="white" stroke="#F5D0C0" stroke-width="0.6"/><text x="211" y="67" text-anchor="middle" fill="#E2582E" font-size="5" font-weight="600" font-family="IBM Plex Mono, monospace">1–30</text><text x="211" y="74" text-anchor="middle" fill="#8A90A0" font-size="4" font-family="IBM Plex Mono, monospace">мин</text>
+
+          <!-- Chamber -->
+          <line x1="60" y1="160" x2="16" y2="150" stroke="#0052CC" stroke-width="0.4" stroke-dasharray="2 1.5"/><circle cx="16" cy="150" r="2.5" fill="#0052CC"/>
+          <rect x="2" y="140" width="28" height="20" rx="2" fill="white" stroke="#DDE9FA" stroke-width="0.6"/><text x="16" y="151" text-anchor="middle" fill="#003D8F" font-size="5" font-weight="600" font-family="IBM Plex Mono, monospace">270</text><text x="16" y="157" text-anchor="middle" fill="#8A90A0" font-size="4" font-family="IBM Plex Mono, monospace">мл</text>
+
+          <!-- Spray -->
+          <line x1="96" y1="278" x2="22" y2="298" stroke="#0052CC" stroke-width="0.4" stroke-dasharray="2 1.5"/><circle cx="22" cy="298" r="2.5" fill="#0052CC"/>
+          <rect x="2" y="289" width="42" height="18" rx="2" fill="white" stroke="#DDE9FA" stroke-width="0.6"/><text x="23" y="301" text-anchor="middle" fill="#003D8F" font-size="5" font-weight="600" font-family="IBM Plex Mono, monospace">МИКРОДОЗА</text>
+
+          <!-- Model label -->
+          <rect x="45" y="310" width="130" height="20" rx="4" fill="#001B44"/>
+          <text x="110" y="323" text-anchor="middle" fill="white" font-size="7" font-weight="600" font-family="IBM Plex Mono, monospace" letter-spacing="0.12em">GHB701 · HARMONY LCD</text>
+        </svg>
+      </div>
+
+      <div class="t-info">
+        <div class="t-info-eyebrow">Анатомия диспенсера</div>
+        <div class="t-info-title">Задайте расписание —<br>забудьте о запахах</div>
+        <div class="t-info-sub">Модель GHB701 · Harmony с LCD</div>
+        <div class="t-list">
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--w"><svg viewBox="0 0 24 24" fill="none" stroke="#E2582E" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg></div><div><div class="t-feat-name">LCD-дисплей</div><div class="t-feat-desc"><strong>Настройка интервала, расписание, индикация батарей</strong> — всё на экране. Управление без вскрытия корпуса.</div></div></div>
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--b"><svg viewBox="0 0 24 24" fill="none" stroke="#0052CC" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><div class="t-feat-name">Интервал 1–30 минут</div><div class="t-feat-desc">Точная настройка частоты распыления. <strong>Микродоза аэрозоля по расписанию</strong> — экономия без потери эффекта.</div></div></div>
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--b"><svg viewBox="0 0 24 24" fill="none" stroke="#0052CC" stroke-width="1.5"><path d="M12 2v4m0 12v4m-10-10h4m12 0h4"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="t-feat-name">Автоматическая работа</div><div class="t-feat-desc"><strong>Система работает сама.</strong> Персоналу не нужно помнить о распылении — диспенсер следует расписанию.</div></div></div>
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--b"><svg viewBox="0 0 24 24" fill="none" stroke="#0052CC" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="t-feat-name">3 000 порций</div><div class="t-feat-desc">Один баллон 270 мл. <strong>Редкая замена</strong> — минимум обслуживания.</div></div></div>
+          <div class="t-feat"><div class="t-feat-icon t-feat-icon--b"><svg viewBox="0 0 24 24" fill="none" stroke="#0052CC" stroke-width="1.5"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><div><div class="t-feat-name">Закрытый корпус</div><div class="t-feat-desc"><strong>Баллон внутри, замок на ключ.</strong> Защита от кражи и несанкционированного доступа.</div></div></div>
+        </div>
+        <div class="t-note">Батареи <strong>2 × LR6 (AA)</strong> — не входят в комплект. Стандартный формат баллона.</div>
+      </div>
+    </div>
+
+    <div class="t-compare">
+      <div class="t-cmp"><div class="t-cmp-marker"></div><div><div class="t-cmp-overline">ABS-пластик · LCD · компакт</div><div class="t-cmp-name">Harmony</div><div class="t-cmp-desc">22,5 × 8,5 × 7 см. Белый / чёрный.</div><div class="t-cmp-tag">Диспенсерная политика</div></div></div>
+      <div class="t-cmp"><div class="t-cmp-marker"></div><div><div class="t-cmp-overline">Нерж. сталь · LCD</div><div class="t-cmp-name">Stella</div><div class="t-cmp-desc">Полир. / матовый / антифингер. Любой RAL.</div><div class="t-cmp-tag">Любой RAL под заказ</div></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     PAGE 3 — BANNER PLACEHOLDER
+     ═══════════════════════════════════ -->
+
+<div class="label">Стр. 3 · Баннер</div>
+
+<div class="page">
+  <div style="height:100%;display:grid;grid-template-rows:auto 1fr auto;">
+    <div style="padding:24px 40px 0;display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;align-items:baseline;gap:10px;"><div class="t-logo">Merida</div><div class="t-hdr-div"></div><div class="t-hdr-ctx">Арома</div></div>
+      <div class="ftr-num">3 / 4</div>
+    </div>
+    <div style="display:grid;grid-template-rows:3fr 2fr;min-height:0;">
+      <div style="background:var(--g100);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:20px 40px 0;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 18px,rgba(0,0,0,0.025) 18px,rgba(0,0,0,0.025) 36px);pointer-events:none;"></div>
+        <div style="position:absolute;width:60px;height:60px;border:1px solid var(--g300);border-radius:50%;"></div>
+        <div style="position:absolute;width:1px;height:80px;background:var(--g300);"></div>
+        <div style="position:absolute;width:80px;height:1px;background:var(--g300);"></div>
+        <div style="position:relative;z-index:1;text-align:center;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--warm);font-weight:600;margin-bottom:8px;">Место для фото</div>
+          <div style="font-size:22px;font-weight:800;letter-spacing:-0.02em;color:var(--g500);line-height:1.2;">Акцент с фото<br>главной боли / преимущества</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:var(--g400);margin-top:10px;">hero image · full bleed · 210 × ~170 mm</div>
+        </div>
+      </div>
+      <div style="padding:24px 40px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><div style="width:28px;height:2px;background:var(--warm);flex-shrink:0;"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--warm);font-weight:600;">Ключевое сообщение</div></div>
+        <div style="display:flex;flex-direction:column;gap:8px;"><div style="height:24px;background:var(--g100);border-radius:3px;width:85%;"></div><div style="height:24px;background:var(--g100);border-radius:3px;width:70%;"></div></div>
+        <div style="margin-top:18px;display:flex;flex-direction:column;gap:6px;"><div style="height:10px;background:var(--g50);border-radius:2px;width:100%;"></div><div style="height:10px;background:var(--g50);border-radius:2px;width:95%;"></div><div style="height:10px;background:var(--g50);border-radius:2px;width:60%;"></div></div>
+        <div style="margin-top:20px;padding-top:14px;border-top:1px solid var(--g100);font-family:'IBM Plex Mono',monospace;font-size:6.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--g300);">↑ Заглушка — заменить на финальный контент</div>
+      </div>
+    </div>
+    <div style="padding:0 40px 20px;display:flex;justify-content:space-between;align-items:flex-end;">
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:6px;letter-spacing:0.16em;text-transform:uppercase;color:var(--g300);font-weight:500;margin-bottom:2px;">Merida Арома</div><div style="font-size:7px;color:var(--g400);">Автоматическое освежение воздуха</div></div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:0.28em;text-transform:uppercase;color:var(--g200);">Merida</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     PAGE 4 — CATALOG
+     ═══════════════════════════════════ -->
+
+<div class="label">Стр. 4 · Каталог</div>
+
+<div class="page" style="position:relative;">
+  <div class="cat">
+    <div class="cat-hdr">
+      <div class="t-hdr-left"><div class="t-logo">Merida</div><div class="t-hdr-div"></div><div class="t-hdr-ctx">Арома · каталог</div></div>
+      <div class="ftr-num">4 / 4</div>
+    </div>
+    <div class="cat-body">
+
+      <div class="disp-section">
+        <div class="sec-head"><div class="sec-title">Диспенсеры</div><div class="sec-count">5 арт.</div></div>
+        <div class="disp-grid" style="grid-template-columns:repeat(5,1fr);">
+          <div class="disp-card"><div class="dc-thumb"><svg viewBox="0 0 36 58" fill="none"><rect x="3" y="3" width="30" height="46" rx="5" fill="#E0EEFF" stroke="#B3CAE6" stroke-width="0.5"/><rect x="7" y="8" width="22" height="12" rx="2" fill="#DDE9FA" stroke="#0052CC" stroke-width="0.3"/><text x="18" y="16" text-anchor="middle" fill="#0052CC" font-size="4" font-weight="600" font-family="IBM Plex Mono, monospace">LCD</text><rect x="9" y="24" width="18" height="18" rx="2" fill="#F0F6FF"/><rect x="13" y="42" width="10" height="3" rx="1" fill="#D0DCF0"/></svg></div><div class="dc-art">GHB701</div><div class="dc-name">Harmony · белый</div><div class="dc-badge dc-badge--lcd">LCD</div></div>
+          <div class="disp-card"><div class="dc-thumb"><svg viewBox="0 0 36 58" fill="none"><rect x="3" y="3" width="30" height="46" rx="5" fill="#2D3142" stroke="#1A1D2B" stroke-width="0.5"/><rect x="7" y="8" width="22" height="12" rx="2" fill="#3A3E4E" stroke="#6AA3FF" stroke-width="0.3"/><text x="18" y="16" text-anchor="middle" fill="#6AA3FF" font-size="4" font-weight="600" font-family="IBM Plex Mono, monospace">LCD</text><rect x="9" y="24" width="18" height="18" rx="2" fill="#3A3E4E"/><rect x="13" y="42" width="10" height="3" rx="1" fill="#3A3E4E"/></svg></div><div class="dc-art">—</div><div class="dc-name">Harmony · чёрный</div><div class="dc-badge dc-badge--lcd">LCD</div></div>
+          <div class="disp-card dc-steel"><div class="dc-thumb"><svg viewBox="0 0 36 58" fill="none"><rect x="3" y="3" width="30" height="46" rx="5" fill="#4B5060" stroke="#6B7280" stroke-width="0.5"/><rect x="7" y="8" width="22" height="12" rx="2" fill="#5C6478" stroke="#8A90A0" stroke-width="0.3"/><text x="18" y="16" text-anchor="middle" fill="#B0B5C3" font-size="4" font-weight="600" font-family="IBM Plex Mono, monospace">LCD</text><rect x="9" y="24" width="18" height="18" rx="2" fill="#5C6478"/><rect x="13" y="42" width="10" height="3" rx="1" fill="#5C6478"/><line x1="8" y1="6" x2="12" y2="12" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/></svg></div><div class="dc-art">—</div><div class="dc-name">Stella · полир.</div><div class="dc-badge dc-badge--st">AISI 304</div></div>
+          <div class="disp-card dc-steel"><div class="dc-thumb"><svg viewBox="0 0 36 58" fill="none"><rect x="3" y="3" width="30" height="46" rx="5" fill="#3A3E4E" stroke="#4B5060" stroke-width="0.5"/><rect x="7" y="8" width="22" height="12" rx="2" fill="#454A5A" stroke="#8A90A0" stroke-width="0.3"/><text x="18" y="16" text-anchor="middle" fill="#8A90A0" font-size="4" font-weight="600" font-family="IBM Plex Mono, monospace">LCD</text><rect x="9" y="24" width="18" height="18" rx="2" fill="#454A5A"/><rect x="13" y="42" width="10" height="3" rx="1" fill="#454A5A"/></svg></div><div class="dc-art">—</div><div class="dc-name">Stella · мат.</div><div class="dc-badge dc-badge--st">AISI 304</div></div>
+          <div class="disp-card dc-steel"><div class="dc-thumb"><svg viewBox="0 0 36 58" fill="none"><rect x="3" y="3" width="30" height="46" rx="5" fill="#434858" stroke="#5C6478" stroke-width="0.5"/><rect x="7" y="8" width="22" height="12" rx="2" fill="#4E5368" stroke="#8A90A0" stroke-width="0.3"/><text x="18" y="16" text-anchor="middle" fill="#8A90A0" font-size="4" font-weight="600" font-family="IBM Plex Mono, monospace">LCD</text><rect x="9" y="24" width="18" height="18" rx="2" fill="#4E5368"/><rect x="13" y="42" width="10" height="3" rx="1" fill="#4E5368"/></svg></div><div class="dc-art">—</div><div class="dc-name">Stella · антиф.</div><div class="dc-badge dc-badge--st">AISI 304</div></div>
+        </div>
+        <div class="ral-note"><strong>Stella — под заказ:</strong> порошковое покрытие в любом цвете RAL</div>
+        <div class="spec-block">
+          <table>
+            <thead><tr><th>Артикул</th><th>Модель</th><th>Материал</th><th>Цвет</th><th>Размер, см</th><th>Батарея</th><th>Гарант.</th><th>Дисп. пол.</th></tr></thead>
+            <tbody>
+              <tr><td>GHB701</td><td class="td-m">Harmony</td><td>ABS</td><td>белый</td><td class="td-d">22,5 × 8,5 × 7</td><td>2 × LR6</td><td>12 мес.</td><td class="td-b">да</td></tr>
+              <tr><td>—</td><td class="td-m">Harmony</td><td>ABS</td><td>чёрный</td><td class="td-d">22,5 × 8,5 × 7</td><td>2 × LR6</td><td>12 мес.</td><td class="td-b">да</td></tr>
+              <tr><td>—</td><td class="td-m"><span class="td-st">Stella</span></td><td>AISI 304</td><td>полир.</td><td class="td-d">—</td><td>2 × LR6</td><td>12 мес.</td><td class="td-d">—</td></tr>
+              <tr><td>—</td><td class="td-m"><span class="td-st">Stella</span></td><td>AISI 304</td><td>матовый</td><td class="td-d">—</td><td>2 × LR6</td><td>12 мес.</td><td class="td-d">—</td></tr>
+              <tr><td>—</td><td class="td-m"><span class="td-st">Stella</span></td><td>AISI 304</td><td>антифингер</td><td class="td-d">—</td><td>2 × LR6</td><td>12 мес.</td><td class="td-d">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="b-div"></div>
+
+      <div>
+        <div class="sec-head"><div class="sec-title">Освежители воздуха</div><div class="sec-count">1+ арт.</div></div>
+        <div style="display:grid;grid-template-columns:1fr;margin-top:8px;border:1px solid var(--g100);">
+          <div class="cons-card" style="flex-direction:row;gap:16px;padding:12px 16px;justify-content:flex-start;">
+            <div style="width:36px;height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 30 48" fill="none"><rect x="5" y="4" width="20" height="36" rx="4" fill="#E0EEFF" stroke="#B3CAE6" stroke-width="0.5"/><rect x="10" y="2" width="10" height="6" rx="2" fill="#C7D6EA"/><circle cx="15" cy="20" r="3" fill="none" stroke="#0052CC" stroke-width="0.5" opacity="0.4"/><circle cx="15" cy="32" r="2" fill="#DDE9FA"/><circle cx="12" y="35" r="1.5" fill="#DDE9FA" opacity="0.5"/><circle cx="18" cy="34" r="1.5" fill="#DDE9FA" opacity="0.4"/></svg></div>
+            <div style="text-align:left;">
+              <div class="cc-art">OE68</div>
+              <div class="cc-name" style="font-size:7px;color:var(--g600);">Освежитель воздуха Merida Премиум «Энергия тропиков»</div>
+              <div style="font-size:6px;color:var(--g400);margin-top:2px;">270 мл · 3 000 порций · 6 шт./кор. · совместим со всеми диспенсерами линейки Арома</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:6px;padding:6px 10px;font-family:'IBM Plex Mono',monospace;font-size:6px;color:var(--g400);border-left:2px solid var(--g200);letter-spacing:0.06em;">Дополнительные ароматы — уточняйте у менеджера Merida</div>
+      </div>
+
+      <div class="cat-policy">
+        <div class="cat-policy-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+        <div class="cat-policy-body"><div class="cat-policy-title">Диспенсерная политика</div><div class="cat-policy-text">Harmony Арома (GHB701) участвует в программе: оборудование предоставляется бесплатно при заключении договора на поставку аэрозолей.</div></div>
+      </div>
+
+    </div>
+
+    <div class="cat-ftr">
+      <div class="cat-ftr-contact"><div class="cat-ftr-label">Контакты дистрибьютора</div><div class="cat-ftr-info">тел. +7 (___) ___-__-__ · email@example.com · www.merida.ru</div></div>
+      <div class="cat-ftr-brand"><div class="cat-ftr-brand-name">Merida</div><div class="cat-ftr-brand-motto">Business starts with comfort</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){const P=210*3.7795275591,M=16;function s(){const pp=document.querySelectorAll('.page'),ll=document.querySelectorAll('.label');if(window.innerWidth<768){const w=window.innerWidth-M*2,sc=w/P;pp.forEach(p=>{p.style.transform=`scale(${sc})`;p.style.transformOrigin='top center';p.style.marginBottom=`-${(1-sc)*p.offsetHeight}px`;});ll.forEach(l=>l.style.width=`${w}px`);document.body.style.padding=`40px ${M}px`;document.body.style.gap='40px';}else{pp.forEach(p=>{p.style.transform='';p.style.transformOrigin='';p.style.marginBottom='';});ll.forEach(l=>l.style.width='');document.body.style.padding='';document.body.style.gap='';}}s();window.addEventListener('resize',s);})();
+</script>
+</body>
+</html>
